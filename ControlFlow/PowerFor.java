@@ -9,7 +9,7 @@ public class PowerFor {
 
         System.out.print("Enter the power: ");
         int power = scanner.nextInt();
-
+        scanner.close();
         if (number < 0 || power < 0) {
             System.out.println("Please enter positive integers only.");
             return;
