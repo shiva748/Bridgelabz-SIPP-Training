@@ -5,6 +5,7 @@ public class GreatestFactorWhile {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a positive integer: ");
         int number = scanner.nextInt();
+        scanner.close();
         
         if (number <= 1) {
             System.out.println("Please enter a number greater than 1.");
@@ -23,6 +24,5 @@ public class GreatestFactorWhile {
         }
 
         System.out.println("The greatest factor of " + number + " (besides itself) is: " + greatestFactor);
-        scanner.close();
     }
 }
