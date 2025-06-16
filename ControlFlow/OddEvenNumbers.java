@@ -5,7 +5,7 @@ public class OddEvenNumbers {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a natural number: ");
         int number = scanner.nextInt();
-
+        scanner.close();
         if (number < 1) {
             System.out.println("The number " + number + " is not a natural number.");
             return;
