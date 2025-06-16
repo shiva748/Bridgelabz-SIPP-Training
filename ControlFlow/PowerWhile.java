@@ -19,5 +19,6 @@ public class PowerWhile {
         }
 
         System.out.println(number + " raised to the power of " + power + " is: " + result);
+        scanner.close();
     }
 }
