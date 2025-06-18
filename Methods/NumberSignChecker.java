@@ -38,13 +38,19 @@ public class NumberSignChecker {
                     System.out.println(numbers[i] + " is positive and odd.");
                 }
             } else {
-                if (isEven(numbers[i])) {
-                    System.out.println(numbers[i] + " is negative and even.");
-                } else {
-                    System.out.println(numbers[i] + " is negative and odd.");
-                }
+                System.out.println(numbers[i] + " is negative.");
             }
         }
+
+        int comparison = compare(numbers[0], numbers[4]);
+        if (comparison == 1) {
+            System.out.println("The first element (" + numbers[0] + ") is greater than the last element (" + numbers[4] + ").");
+        } else if (comparison == 0) {
+            System.out.println("The first element (" + numbers[0] + ") is equal to the last element (" + numbers[4] + ").");
+        } else {
+            System.out.println("The first element (" + numbers[0] + ") is less than the last element (" + numbers[4] + ").");
+        }
+
         scanner.close();
     }
 }
