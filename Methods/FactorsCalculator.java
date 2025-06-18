@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class FactorsCalculator {
 
-    // Method to find factors of a number and return as an array
     public static int[] findFactors(int number) {
         int count = 0;
         for (int i = 1; i <= number; i++) {
@@ -20,7 +19,6 @@ public class FactorsCalculator {
         return factors;
     }
 
-    // Method to find greatest factor using factors array
     public static int greatestFactor(int[] factors) {
         int max = factors[0];
         for (int factor : factors) {
@@ -31,7 +29,6 @@ public class FactorsCalculator {
         return max;
     }
 
-    // Method to find sum of factors
     public static int sumOfFactors(int[] factors) {
         int sum = 0;
         for (int factor : factors) {
@@ -40,7 +37,6 @@ public class FactorsCalculator {
         return sum;
     }
 
-    // Method to find product of factors
     public static long productOfFactors(int[] factors) {
         long product = 1;
         for (int factor : factors) {
@@ -49,7 +45,6 @@ public class FactorsCalculator {
         return product;
     }
 
-    // Method to find product of cubes of factors
     public static long productOfCubesOfFactors(int[] factors) {
         long product = 1;
         for (int factor : factors) {
