@@ -2,10 +2,9 @@ import java.util.Scanner;
 
 public class AthleteRun {
 
-    // Method to compute the number of rounds needed to complete 5 km
     public static int computeRounds(double side1, double side2, double side3) {
-        double perimeter = side1 + side2 + side3; // perimeter in meters
-        double distance = 5000.0; // 5 km in meters
+        double perimeter = side1 + side2 + side3;
+        double distance = 5000.0;
         int rounds = (int) Math.ceil(distance / perimeter);
         return rounds;
     }
