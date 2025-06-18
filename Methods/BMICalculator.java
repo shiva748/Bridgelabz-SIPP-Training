@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class BMICalculator {
 
-    // Method to calculate BMI for each person and populate the array
     public static void calculateBMI(double[][] data) {
         for (int i = 0; i < data.length; i++) {
             double weight = data[i][0];
@@ -13,7 +12,6 @@ public class BMICalculator {
         }
     }
 
-    // Method to determine BMI status for each person
     public static String[] determineBMIStatus(double[][] data) {
         String[] statuses = new String[data.length];
         for (int i = 0; i < data.length; i++) {
@@ -33,7 +31,7 @@ public class BMICalculator {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        double[][] data = new double[10][3]; // weight, height, BMI
+        double[][] data = new double[10][3];
 
         System.out.println("Enter weight (kg) and height (cm) for 10 persons:");
 
