@@ -20,7 +20,6 @@ public class UnitConvertorYards {
         return inches * 2.54;
     }
 
-    // Example usage
     public static void main(String[] args) {
         System.out.println("5 yards to feet: " + convertYardsToFeet(5));
         System.out.println("12 feet to yards: " + convertFeetToYards(12));
