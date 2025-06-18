@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Quadratic {
 
-    // Method to find roots of quadratic equation
     public static double[] findRoots(double a, double b, double c) {
         double delta = Math.pow(b, 2) - 4 * a * c;
         if (delta > 0) {
@@ -13,7 +12,6 @@ public class Quadratic {
             double root = -b / (2 * a);
             return new double[]{root};
         } else {
-            // No real roots
             return new double[]{};
         }
     }

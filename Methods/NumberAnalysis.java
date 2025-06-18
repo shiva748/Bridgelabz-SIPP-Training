@@ -2,17 +2,14 @@ import java.util.Scanner;
 
 public class NumberAnalysis {
 
-    // Method to check if number is positive
     public static boolean isPositive(int number) {
         return number >= 0;
     }
 
-    // Method to check if number is even
     public static boolean isEven(int number) {
         return number % 2 == 0;
     }
 
-    // Method to compare two numbers: returns 1 if number1 > number2, 0 if equal, -1 if number1 < number2
     public static int compare(int number1, int number2) {
         if (number1 > number2) {
             return 1;
@@ -38,24 +35,14 @@ public class NumberAnalysis {
             if (isPositive(num)) {
                 System.out.print(num + " is positive and ");
                 if (isEven(num)) {
-                    System.out.println("even.");
+                    System.out.println("even");
                 } else {
-                    System.out.println("odd.");
+                    System.out.println("odd");
                 }
             } else {
-                System.out.println(num + " is negative.");
+                System.out.println(num + " is negative");
             }
         }
-
-        int compResult = compare(numbers[0], numbers[numbers.length - 1]);
-        if (compResult == 1) {
-            System.out.println("The first element is greater than the last element.");
-        } else if (compResult == 0) {
-            System.out.println("The first and last elements are equal.");
-        } else {
-            System.out.println("The first element is less than the last element.");
-        }
-
         scanner.close();
     }
 }

@@ -2,12 +2,10 @@ import java.util.Arrays;
 
 public class NumberCheckerAdvanced {
 
-    // Method to find count of digits in a number
     public static int countDigits(int number) {
         return String.valueOf(Math.abs(number)).length();
     }
 
-    // Method to store digits of a number in an array
     public static int[] digitsArray(int number) {
         String numStr = String.valueOf(Math.abs(number));
         int[] digits = new int[numStr.length()];
@@ -17,7 +15,6 @@ public class NumberCheckerAdvanced {
         return digits;
     }
 
-    // Method to check if a number is a duck number (has a non-zero digit)
     public static boolean isDuckNumber(int number) {
         int[] digits = digitsArray(number);
         for (int digit : digits) {
@@ -28,7 +25,6 @@ public class NumberCheckerAdvanced {
         return false;
     }
 
-    // Method to check if a number is an Armstrong number
     public static boolean isArmstrongNumber(int number) {
         int[] digits = digitsArray(number);
         int n = digits.length;
@@ -39,7 +35,6 @@ public class NumberCheckerAdvanced {
         return sum == number;
     }
 
-    // Method to find largest and second largest digits
     public static int[] largestAndSecondLargest(int number) {
         int[] digits = digitsArray(number);
         int largest = Integer.MIN_VALUE;
@@ -55,7 +50,6 @@ public class NumberCheckerAdvanced {
         return new int[]{largest, secondLargest};
     }
 
-    // Method to find smallest and second smallest digits
     public static int[] smallestAndSecondSmallest(int number) {
         int[] digits = digitsArray(number);
         int smallest = Integer.MAX_VALUE;

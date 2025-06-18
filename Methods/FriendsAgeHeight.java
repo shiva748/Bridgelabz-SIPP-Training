@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class FriendsAgeHeight {
 
-    // Method to find the index of the youngest friend
     public static int findYoungest(int[] ages) {
         int youngestIndex = 0;
         for (int i = 1; i < ages.length; i++) {
@@ -13,7 +12,6 @@ public class FriendsAgeHeight {
         return youngestIndex;
     }
 
-    // Method to find the index of the tallest friend
     public static int findTallest(double[] heights) {
         int tallestIndex = 0;
         for (int i = 1; i < heights.length; i++) {

@@ -2,12 +2,10 @@ import java.util.Arrays;
 
 public class NumberCheckerUtility {
 
-    // Method to find count of digits in a number
     public static int countDigits(int number) {
         return String.valueOf(Math.abs(number)).length();
     }
 
-    // Method to store digits of a number in an array
     public static int[] digitsArray(int number) {
         String numStr = String.valueOf(Math.abs(number));
         int[] digits = new int[numStr.length()];
@@ -17,7 +15,6 @@ public class NumberCheckerUtility {
         return digits;
     }
 
-    // Method to reverse the digits array
     public static int[] reverseArray(int[] arr) {
         int[] reversed = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
@@ -26,19 +23,16 @@ public class NumberCheckerUtility {
         return reversed;
     }
 
-    // Method to compare two arrays for equality
     public static boolean arraysEqual(int[] arr1, int[] arr2) {
         return Arrays.equals(arr1, arr2);
     }
 
-    // Method to check if a number is palindrome using digits
     public static boolean isPalindrome(int number) {
         int[] digits = digitsArray(number);
         int[] reversed = reverseArray(digits);
         return arraysEqual(digits, reversed);
     }
 
-    // Method to check if a number is a duck number (has a non-zero digit)
     public static boolean isDuckNumber(int number) {
         int[] digits = digitsArray(number);
         for (int digit : digits) {
