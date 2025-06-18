@@ -16,7 +16,6 @@ public class UnitConvertorMiles {
         return feet * 0.3048;
     }
 
-    // Example usage
     public static void main(String[] args) {
         System.out.println("10 kilometers to miles: " + convertKmToMiles(10));
         System.out.println("5 miles to kilometers: " + convertMilesToKm(5));
