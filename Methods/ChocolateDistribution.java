@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class ChocolateDistribution {
 
-    // Method to find remainder and quotient of chocolates divided among children
     public static int[] findRemainderAndQuotient(int number, int divisor) {
         int quotient = number / divisor;
         int remainder = number % divisor;
