@@ -35,14 +35,24 @@ public class NumberAnalysis {
             if (isPositive(num)) {
                 System.out.print(num + " is positive and ");
                 if (isEven(num)) {
-                    System.out.println("even");
+                    System.out.println("even.");
                 } else {
-                    System.out.println("odd");
+                    System.out.println("odd.");
                 }
             } else {
-                System.out.println(num + " is negative");
+                System.out.println(num + " is negative.");
             }
         }
+
+        int compResult = compare(numbers[0], numbers[numbers.length - 1]);
+        if (compResult == 1) {
+            System.out.println("The first element is greater than the last element.");
+        } else if (compResult == 0) {
+            System.out.println("The first and last elements are equal.");
+        } else {
+            System.out.println("The first element is less than the last element.");
+        }
+
         scanner.close();
     }
 }
