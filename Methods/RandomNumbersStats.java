@@ -2,7 +2,6 @@ import java.util.Arrays;
 
 public class RandomNumbersStats {
 
-    // Method to generate an array of 4-digit random numbers
     public static int[] generate4DigitRandomArray(int size) {
         int[] numbers = new int[size];
         for (int i = 0; i < size; i++) {
@@ -11,7 +10,6 @@ public class RandomNumbersStats {
         return numbers;
     }
 
-    // Method to find average, min, and max of an array
     public static double[] findAverageMinMax(int[] numbers) {
         int sum = 0;
         int min = numbers[0];
