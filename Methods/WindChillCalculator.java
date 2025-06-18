@@ -2,9 +2,7 @@ import java.util.Scanner;
 
 public class WindChillCalculator {
 
-    // Method to calculate wind chill temperature
     public double calculateWindChill(double temperature, double windSpeed) {
-        // Wind chill formula valid for temperatures <= 50F and wind speeds > 3 mph
         if (temperature > 50 || windSpeed <= 3) {
             return temperature;
         }
