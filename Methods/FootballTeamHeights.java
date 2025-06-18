@@ -2,17 +2,15 @@ import java.util.Random;
 
 public class FootballTeamHeights {
 
-    // Method to generate random heights for 11 players between 150 and 250 cm
     public static int[] generateHeights() {
         Random rand = new Random();
         int[] heights = new int[11];
         for (int i = 0; i < heights.length; i++) {
-            heights[i] = 150 + rand.nextInt(101); // 150 to 250 inclusive
+            heights[i] = 150 + rand.nextInt(101);
         }
         return heights;
     }
 
-    // Method to find sum of all elements in the array
     public static int sumHeights(int[] heights) {
         int sum = 0;
         for (int height : heights) {
@@ -21,12 +19,10 @@ public class FootballTeamHeights {
         return sum;
     }
 
-    // Method to find mean height
     public static double meanHeight(int[] heights) {
         return (double) sumHeights(heights) / heights.length;
     }
 
-    // Method to find shortest height
     public static int shortestHeight(int[] heights) {
         int min = heights[0];
         for (int height : heights) {
@@ -37,7 +33,6 @@ public class FootballTeamHeights {
         return min;
     }
 
-    // Method to find tallest height
     public static int tallestHeight(int[] heights) {
         int max = heights[0];
         for (int height : heights) {
