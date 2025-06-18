@@ -2,35 +2,29 @@ import java.util.Scanner;
 
 public class CalendarDisplay {
 
-    // Array of month names
     private static final String[] MONTHS = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     };
 
-    // Array of days in each month (non-leap year)
     private static final int[] DAYS_IN_MONTH = {
         31, 28, 31, 30, 31, 30,
         31, 31, 30, 31, 30, 31
     };
 
-    // Method to check if a year is leap year
     public static boolean isLeapYear(int year) {
         if (year % 400 == 0) return true;
         if (year % 100 == 0) return false;
         return year % 4 == 0;
     }
 
-    // Method to get number of days in a month for a given year
     public static int getDaysInMonth(int month, int year) {
-        if (month == 2) { // February
+        if (month == 2) {
             return isLeapYear(year) ? 29 : 28;
         }
         return DAYS_IN_MONTH[month - 1];
     }
 
-    // Method to get the first day of the month using Gregorian calendar algorithm
-    // Returns 0=Sunday, 1=Monday, ..., 6=Saturday
     public static int getFirstDayOfMonth(int month, int year) {
         int y = year;
         int m = month;
@@ -40,15 +34,13 @@ public class CalendarDisplay {
         }
         int k = y % 100;
         int j = y / 100;
-        int d = 1; // first day of month
+        int d = 1;
         int f = d + (13 * (m + 1)) / 5 + k + (k / 4) + (j / 4) + 5 * j;
         int dayOfWeek = f % 7;
-        // Zeller's Congruence returns 0=Saturday, 1=Sunday,... so adjust:
         int adjustedDay = (dayOfWeek + 6) % 7;
         return adjustedDay;
     }
 
-    // Method to display the calendar
     public static void displayCalendar(int month, int year) {
         System.out.println("     " + MONTHS[month - 1] + " " + year);
         System.out.println("Sun Mon Tue Wed Thu Fri Sat");
@@ -56,7 +48,6 @@ public class CalendarDisplay {
         int firstDay = getFirstDayOfMonth(month, year);
         int daysInMonth = getDaysInMonth(month, year);
 
-        // Print initial spaces
         for (int i = 0; i < firstDay; i++) {
             System.out.print("    ");
         }
