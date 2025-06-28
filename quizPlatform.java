@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-public class quizPlateform {
+public class quizPlatform {
 
     static class InvalidQuizSubmissionException extends Exception {
 
@@ -13,7 +13,7 @@ public class quizPlateform {
     private String[] correctAnswers;
     private List<Integer> userScores = new ArrayList<>();
 
-    public quizPlateform(String[] correctAnswers) {
+    public quizPlatform(String[] correctAnswers) {
         this.correctAnswers = correctAnswers;
     }
 
