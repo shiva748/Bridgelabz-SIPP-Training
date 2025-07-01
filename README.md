@@ -72,7 +72,7 @@ Each entry includes concepts covered, skills practiced, and links to the exact c
 
 ### 📅 24/06/25 (Tue) – Day 3 – Java Keywords  
 *Topics*: Deep dive into important Java keywords: static, final, this, and instanceof, with practical examples for each  
-🔗 [Code](https://github.com/shiva748/BridgeLabz-SIPP-Training/tree/Oops/KeywordOperators)
+🔗 [Code](https://github.com/shiva748/BridgeLabz-SIPP-Training/tree/Oops/KeywordsOperators)
 
 ---
 
