@@ -78,7 +78,7 @@ Each entry includes concepts covered, skills practiced, and links to the exact c
 
 ### 📅 25/06/25 (Tue) – Day 4 – Diagrams & Modelling  
 *Topics*: Object-oriented modeling, designing class diagrams using UML, understanding relationships like aggregation and composition  
-🔗 [Code](https://github.com/shiva748/BridgeLabz-SIPP-Training/tree/Oops/UMLDiagram)
+🔗 [Code](https://github.com/shiva748/BridgeLabz-SIPP-Training/tree/Oops/UmlDiagram)
 
 ---
 
