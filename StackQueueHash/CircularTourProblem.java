@@ -1,6 +1,4 @@
 package StackQueueHash;
-import java.util.LinkedList;
-import java.util.Queue;
 class CircularTourProblem {
     static class PetrolPump {
         int petrol;
