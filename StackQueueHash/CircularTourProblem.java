@@ -1,4 +1,3 @@
-package StackQueueHash;
 class CircularTourProblem {
     static class PetrolPump {
         int petrol;
