@@ -64,6 +64,6 @@ public class cinema {
 		cinemaa hall = new cinemaa();
 		hall.addMovie("Avenger: age of ultron", "12:30");
 		hall.addMovie("Avenger: the end game", "09:30");
-		System.out.println(hall.searchMovie("Ave").getFirst().title);
+		System.out.println(hall.searchMovie("Ave").get(0).title);
 	}
 }
