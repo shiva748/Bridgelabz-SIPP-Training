@@ -1,6 +1,6 @@
 import java.util.HashSet;
 
-public class ChallengeLinearBinarySearch {
+public class ChallengeLinearBinarySearch { 
     public static void main(String[] args) {
         int[] nums = {3, 4, -1, 1};
         System.out.println("First missing positive: " + firstMissingPositive(nums));
