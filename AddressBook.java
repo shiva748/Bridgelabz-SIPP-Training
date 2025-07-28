@@ -46,4 +46,20 @@ public class AddressBook<T extends AddressBook.Contact> {
         list.sort(Comparator.comparing(a -> a.phone));
         return list;
     }
+
+    public static void main(String[] args) throws Exception {
+        AddressBook<Contact> ab = new AddressBook<>();
+        ab.addContact(new Contact("Alice", "123", "alice@mail.com", "Delhi"));
+        ab.addContact(new Contact("Bob", "456", "bob@mail.com", "Mumbai"));
+        ab.addContact(new Contact("Carol", "789", "carol@mail.com", "Delhi"));
+        System.out.println("Search by name: " + ab.searchByName("Alice").email);
+        System.out.println("Search by phone: " + ab.searchByPhone("456").name);
+        System.out.println("All contacts:");
+        for (Contact c : ab.listContacts()) System.out.println(c.name + " " + c.phone);
+        System.out.println("Sorted by name:");
+        for (Contact c : ab.sortByName()) System.out.println(c.name);
+        System.out.println("Sorted by phone:");
+        for (Contact c : ab.sortByPhone()) System.out.println(c.phone);
+        System.out.println("Has same address: " + ab.hasSameAddress(ab.searchByName("Alice"), ab.searchByName("Carol")));
+    }
 }
