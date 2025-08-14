@@ -1,6 +1,6 @@
 
-import java.util.regex.*;
 import java.util.*;
+import java.util.regex.*;
 
 public class RepeatingWords {
     public static void main(String[] args) {
@@ -12,4 +12,4 @@ public class RepeatingWords {
         }
         repeats.forEach(System.out::println);
     }
-}
+} 
