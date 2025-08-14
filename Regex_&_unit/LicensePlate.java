@@ -6,3 +6,4 @@ public class LicensePlate {
         System.out.println(valid ? "Valid" : "Invalid");
     }
 }
+ 
