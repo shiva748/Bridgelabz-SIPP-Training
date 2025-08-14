@@ -6,3 +6,4 @@ public class HexColor {
         System.out.println(valid ? "Valid" : "Invalid");
     }
 }
+ 
