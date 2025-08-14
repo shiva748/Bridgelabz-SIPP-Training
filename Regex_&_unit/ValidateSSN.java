@@ -5,4 +5,4 @@ public class ValidateSSN {
         boolean valid = ssn.matches("^\\d{3}-\\d{2}-\\d{4}$");
         System.out.println(valid ? "Valid" : "Invalid");
     }
-}
+} 
