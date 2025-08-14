@@ -6,3 +6,4 @@ public class MultipleSpaces {
         System.out.println(result);
     }
 }
+ 
