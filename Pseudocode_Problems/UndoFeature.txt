@@ -1,0 +1,21 @@
+INITIALIZE Stack undoStack
+
+FUNCTION typeText(newText):
+    PUSH currentText INTO undoStack
+    SET currentText = currentText + newText
+    PRINT "Current Text: " + currentText
+
+FUNCTION undo():
+    IF undoStack IS NOT empty THEN
+        SET currentText = POP from undoStack
+        PRINT "Undo Done. Current Text: " + currentText
+    ELSE
+        PRINT "Nothing to undo."
+
+MAIN PROGRAM:
+    SET currentText = ""
+    CALL typeText("Hello ")
+    CALL typeText("World")
+    CALL undo()         // removes "World"
+    CALL undo()         // removes "Hello "
+    CALL undo()         // nothing to undo
