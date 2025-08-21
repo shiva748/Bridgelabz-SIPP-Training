@@ -1,0 +1,12 @@
+Map<Course, List<Student>> courseMap
+
+method registerStudent(course, student):
+    if course not in courseMap:
+        courseMap[course] = new List<Student>()
+    courseMap[course].add(student)
+
+method display():
+    for each course in courseMap:
+        print "Course:", course.name
+        for each student in courseMap[course]:
+            print student.name
