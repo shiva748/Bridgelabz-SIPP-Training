@@ -1,0 +1,26 @@
+
+class Customer {
+    name, address, phone
+}
+
+class Restaurant {
+    name, menuItems
+}
+
+class DeliveryBoy {
+    name, vehicle
+}
+
+
+class Order {
+    Customer customer
+    Restaurant restaurant
+    DeliveryBoy deliveryBoy
+    List<FoodItem> foodItems
+
+    method placeOrder() {
+        print "Order placed by " + customer.name
+        print "Restaurant: " + restaurant.name
+        print "Delivery by: " + deliveryBoy.name
+    }
+}
