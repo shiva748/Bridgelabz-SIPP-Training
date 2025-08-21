@@ -1,0 +1,14 @@
+INITIALIZE HashMap studentScores
+
+FUNCTION addStudentScore(name, score):
+    PUT (name, score) INTO studentScores
+
+FUNCTION displayHighestScorer():
+    highestEntry = FIND entry in studentScores with MAX score (using streams)
+    PRINT "Highest Scorer: " + highestEntry.key + " with " + highestEntry.value + " marks"
+
+MAIN PROGRAM:
+    CALL addStudentScore("Alice", 85)
+    CALL addStudentScore("Bob", 92)
+    CALL addStudentScore("Charlie", 88)
+    CALL displayHighestScorer()   // Bob 92
