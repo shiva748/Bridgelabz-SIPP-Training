@@ -1,0 +1,32 @@
+CLASS QuizTimer
+    PROPERTY timeSlots[ ]  // circular array of integers
+    PROPERTY size          // number of questions
+    PROPERTY frontIndex    // index of current question
+
+    CONSTRUCTOR(timeArray, numQuestions)
+        timeSlots ← timeArray
+        size ← numQuestions
+        frontIndex ← 0
+
+    METHOD startQuiz()
+        FOR i FROM 0 TO size - 1
+            questionTime ← timeSlots[frontIndex]
+            PRINT "Question " + (i+1) + " starts, Time: " + questionTime + " seconds"
+
+            FOR t FROM questionTime DOWNTO 1
+                IF t <= 5 THEN
+                    PRINT "⚠ Warning: Only " + t + " seconds left!"
+                END IF
+                WAIT 1 second
+            END FOR
+
+            frontIndex ← (frontIndex + 1) MOD size  // circular move
+        END FOR
+    END METHOD
+END CLASS
+
+MAIN
+    timeArray ← [20, 15, 30]   // seconds for Q1, Q2, Q3
+    quiz ← NEW QuizTimer(timeArray, 3)
+    quiz.startQuiz()
+END MAIN
