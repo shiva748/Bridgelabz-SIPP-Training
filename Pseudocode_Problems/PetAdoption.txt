@@ -1,0 +1,43 @@
+CLASS Pet
+    ATTRIBUTES:
+        name
+        age
+    CONSTRUCTOR(name, age):
+        SET this.name = name
+        SET this.age = age
+    METHOD displayInfo():
+        PRINT name
+        PRINT age
+
+CLASS Dog EXTENDS Pet
+    ATTRIBUTE: breed
+    CONSTRUCTOR(name, age, breed):
+        CALL super(name, age)
+        SET this.breed = breed
+    METHOD displayInfo():
+        CALL super.displayInfo()
+        PRINT breed
+
+CLASS Cat EXTENDS Pet
+    ATTRIBUTE: color
+    CONSTRUCTOR(name, age, color):
+        CALL super(name, age)
+        SET this.color = color
+    METHOD displayInfo():
+        CALL super.displayInfo()
+        PRINT color
+
+CLASS Bird EXTENDS Pet
+    ATTRIBUTE: canTalk
+    CONSTRUCTOR(name, age, canTalk):
+        CALL super(name, age)
+        SET this.canTalk = canTalk
+    METHOD displayInfo():
+        CALL super.displayInfo()
+        PRINT "Can Talk: Yes" IF canTalk IS TRUE ELSE "No"
+
+MAIN PROGRAM:
+    CREATE Dog object with name="Buddy", age=3, breed="Golden Retriever"
+    CREATE Cat object with name="Whiskers", age=2, color="White"
+    CREATE Bird object with name="Polly", age=1, canTalk=true
+    CALL displayInfo() for each object
