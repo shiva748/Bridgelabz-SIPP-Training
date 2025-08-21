@@ -1,0 +1,12 @@
+class Patient {
+    id, name, age, disease
+}
+
+class PatientRecordManager {
+    HashMap<id, Patient> records
+
+    method addPatient(Patient p) { records.put(p.id, p) }
+    method getPatient(id) { return records.get(id) }
+    method updatePatient(id, newData) { records.put(id, newData) }
+    method deletePatient(id) { records.remove(id) }
+}
