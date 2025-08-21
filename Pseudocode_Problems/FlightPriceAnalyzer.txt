@@ -1,0 +1,19 @@
+class Flight {
+    attributes: flightNo, price, duration
+}
+
+
+class FlightComparator implements Comparator {
+    method compare(f1, f2):
+        if f1.price != f2.price:
+            return f1.price - f2.price
+        else:
+            return f1.duration - f2.duration
+}
+
+method mergeSort(flights[], comparator):
+    if length <= 1: return flights
+    mid = length / 2
+    left = mergeSort(leftHalf, comparator)
+    right = mergeSort(rightHalf, comparator)
+    return merge(left, right, comparator)
