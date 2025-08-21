@@ -1,0 +1,48 @@
+ABSTRACT CLASS Crop
+    PROPERTY name: STRING
+
+    CONSTRUCTOR(name)
+        this.name ← name
+
+    ABSTRACT METHOD getWaterRequirement() RETURNS INTEGER
+    ABSTRACT METHOD harvest()
+
+END CLASS
+
+CLASS Rice EXTENDS Crop
+    CONSTRUCTOR()
+        CALL super("Rice")
+
+    METHOD getWaterRequirement()
+        RETURN 5000  // liters per hectare
+    END METHOD
+
+    METHOD harvest()
+        PRINT "Harvesting rice..."
+    END METHOD
+END CLASS
+
+CLASS Wheat EXTENDS Crop
+    CONSTRUCTOR()
+        CALL super("Wheat")
+
+    METHOD getWaterRequirement()
+        RETURN 3000  // liters per hectare
+    END METHOD
+
+    METHOD harvest()
+        PRINT "Harvesting wheat..."
+    END METHOD
+END CLASS
+
+MAIN
+    CREATE crops AS LIST OF Crop
+    ADD new Rice() TO crops
+    ADD new Wheat() TO crops
+
+    FOR EACH crop IN crops
+        PRINT "Crop: " + crop.name
+        PRINT "Water Requirement: " + crop.getWaterRequirement() + " liters"
+        crop.harvest()
+    END FOR
+END MAIN
