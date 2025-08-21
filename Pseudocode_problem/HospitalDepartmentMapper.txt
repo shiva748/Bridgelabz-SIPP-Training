@@ -1,0 +1,49 @@
+CLASS Doctor
+    PROPERTY name: STRING
+    PROPERTY specialization: STRING
+
+    CONSTRUCTOR(name, specialization)
+        this.name ← name
+        this.specialization ← specialization
+END CLASS
+
+CLASS Hospital
+    PROPERTY departmentMap: MAP<STRING, LIST<Doctor>>
+
+    CONSTRUCTOR()
+        departmentMap ← EMPTY MAP
+
+    METHOD addDoctor(department: STRING, doctor: Doctor)
+        IF department NOT IN departmentMap
+            departmentMap[department] ← NEW LIST<Doctor>()
+        END IF
+        departmentMap[department].ADD(doctor)
+    END METHOD
+
+    METHOD filterBySpecialization(specialization: STRING) RETURNS LIST<Doctor>
+        result ← EMPTY LIST
+        FOR EACH department IN departmentMap
+            FOR EACH doctor IN departmentMap[department]
+                IF doctor.specialization == specialization
+                    result.ADD(doctor)
+                END IF
+            END FOR
+        END FOR
+        RETURN result
+    END METHOD
+END CLASS
+
+MAIN
+    hospital ← NEW Hospital()
+
+    hospital.addDoctor("Cardiology", NEW Doctor("Dr. Smith", "Cardiologist"))
+    hospital.addDoctor("Neurology", NEW Doctor("Dr. Lee", "Neurologist"))
+    hospital.addDoctor("Cardiology", NEW Doctor("Dr. Brown", "Cardiologist"))
+
+    cardiologists ← hospital.filterBySpecialization("Cardiologist")
+
+    PRINT "Cardiologists in hospital:"
+    FOR EACH doc IN cardiologists
+        PRINT doc.name + " (" + doc.specialization + ")"
+    END FOR
+END MAIN
