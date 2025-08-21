@@ -1,0 +1,35 @@
+
+interface Searchable {
+    method search(criteria)
+}
+
+interface Printable {
+    method print()
+}
+
+
+class Prescription implements Searchable, Printable {
+    method search(criteria) { /* search in prescription */ }
+    method print() { print "Prescription details" }
+}
+
+class LabReport implements Searchable, Printable {
+    method search(criteria) { /* search in lab report */ }
+    method print() { print "Lab Report details" }
+}
+
+class XRayReport implements Searchable, Printable {
+    method search(criteria) { /* search in x-ray report */ }
+    method print() { print "X-Ray details" }
+}
+
+
+class MedicalRecordManager {
+    List<Searchable> records
+
+    method addRecord(record) { records.add(record) }
+    method searchAll(criteria) {
+        for record in records:
+            record.search(criteria)
+    }
+}
