@@ -1,0 +1,27 @@
+interface Rentable {
+    method rent()
+    method returnVehicle()
+}
+
+
+abstract class Vehicle implements Rentable {
+    attributes: vehicleId, model, basePrice
+    abstract method calculateRentalCost(duration)
+}
+
+
+class Car extends Vehicle {
+    method calculateRentalCost(duration):
+        return basePrice * duration
+}
+
+class Bike extends Vehicle {
+    method calculateRentalCost(duration):
+        return (basePrice * duration) * 0.5
+}
+
+class VehicleFactory {
+    static method getVehicle(type):
+        if type == "car": return new Car()
+        if type == "bike": return new Bike()
+}
