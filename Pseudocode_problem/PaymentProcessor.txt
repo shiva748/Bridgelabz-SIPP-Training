@@ -1,0 +1,17 @@
+class Transaction<T> {
+    T paymentMode   // UPI, Card, NetBanking
+    double amount
+
+    constructor(T mode, amount) {
+        this.paymentMode = mode
+        this.amount = amount
+    }
+
+    method processTransaction() {
+        print "Processing payment with " + paymentMode
+    }
+}
+
+class UPI { id }
+class Card { number, cvv }
+class NetBanking { bankName, userId }
