@@ -1,0 +1,38 @@
+
+class Account {
+    attributes: accountNumber, balance
+
+    method deposit(amount):
+        balance += amount
+
+    method withdraw(amount):
+        // generic rule
+        if balance >= amount:
+            balance -= amount
+        else:
+            print "Insufficient funds"
+}
+
+
+class SavingAccount extends Account {
+    attribute: withdrawalLimitPerDay
+
+    override method withdraw(amount):
+        if amount > withdrawalLimitPerDay:
+            print "Exceeds daily limit"
+        else if balance >= amount:
+            balance -= amount
+        else:
+            print "Insufficient balance"
+}
+
+
+class CurrentAccount extends Account {
+    attribute: overdraftLimit
+
+    override method withdraw(amount):
+        if balance + overdraftLimit >= amount:
+            balance -= amount
+        else:
+            print "Overdraft limit exceeded"
+}
