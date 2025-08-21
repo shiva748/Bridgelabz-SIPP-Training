@@ -1,0 +1,35 @@
+ENUM TrafficLight
+    RED
+    GREEN
+    YELLOW
+END ENUM
+
+CLASS TrafficSignal
+    PRIVATE currentLight: TrafficLight
+
+    CONSTRUCTOR()
+        currentLight ← TrafficLight.RED
+
+    METHOD switchLight()
+        IF currentLight == RED THEN
+            currentLight ← GREEN
+        ELSE IF currentLight == GREEN THEN
+            currentLight ← YELLOW
+        ELSE IF currentLight == YELLOW THEN
+            currentLight ← RED
+        END IF
+    END METHOD
+
+    METHOD displayLight()
+        PRINT "Current Light: " + currentLight
+    END METHOD
+END CLASS
+
+MAIN
+    CREATE signal AS TrafficSignal
+    LOOP FOREVER
+        signal.displayLight()
+        WAIT for 5 seconds  // time interval can vary
+        signal.switchLight()
+    END LOOP
+END MAIN
