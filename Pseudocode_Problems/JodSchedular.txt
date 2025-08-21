@@ -1,0 +1,40 @@
+CLASS Job
+    PROPERTY name: STRING
+    PROPERTY deadline: INTEGER
+    PROPERTY processingTime: INTEGER
+
+    CONSTRUCTOR(name, deadline, processingTime)
+        this.name ← name
+        this.deadline ← deadline
+        this.processingTime ← processingTime
+END CLASS
+
+CLASS JobScheduler
+    PROPERTY priorityQueue   // min-heap based on deadline, then processingTime
+
+    METHOD addJob(job)
+        INSERT job INTO priorityQueue
+            PRIORITY: (deadline ascending, then processingTime ascending)
+    END METHOD
+
+    METHOD processJobs()
+        WHILE priorityQueue is not empty
+            job ← REMOVE_TOP(priorityQueue)
+            PRINT "Processing Job: " + job.name + 
+                  " | Deadline: " + job.deadline + 
+                  " | Time: " + job.processingTime
+            WAIT job.processingTime seconds
+        END WHILE
+    END METHOD
+END CLASS
+
+MAIN
+    scheduler ← NEW JobScheduler()
+
+    scheduler.addJob(NEW Job("Job1", 3, 5))
+    scheduler.addJob(NEW Job("Job2", 1, 2))
+    scheduler.addJob(NEW Job("Job3", 2, 1))
+    scheduler.addJob(NEW Job("Job4", 1, 4))
+
+    scheduler.processJobs()
+END MAIN
