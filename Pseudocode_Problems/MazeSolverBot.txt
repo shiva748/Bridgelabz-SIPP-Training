@@ -1,0 +1,15 @@
+
+function solveMaze(maze, x, y, visited):
+    if maze[x][y] == 'E': return true
+    
+    mark visited[x][y] = true
+    
+    for each direction in [UP, DOWN, LEFT, RIGHT]:
+        newX, newY = next cell
+        if valid(newX, newY) and not visited[newX][newY]:
+            if solveMaze(maze, newX, newY, visited) == true:
+                return true
+    
+    
+    visited[x][y] = false
+    return false
