@@ -1,0 +1,27 @@
+CLASS Employee:
+    ATTRIBUTES:
+        name
+        department
+        salary
+    CONSTRUCTOR(name, department, salary):
+        SET this.name = name
+        SET this.department = department
+        SET this.salary = salary
+
+INITIALIZE ArrayList employeeList
+
+FUNCTION addEmployee(name, department, salary):
+    CREATE Employee object
+    ADD object TO employeeList
+
+FUNCTION filterByDepartment(dept):
+    filteredList = FILTER employees WHERE department == dept (using streams)
+    FOR EACH employee IN filteredList:
+        PRINT employee.name + " - " + employee.department
+
+MAIN PROGRAM:
+    CALL addEmployee("John", "HR", 50000)
+    CALL addEmployee("Emma", "IT", 70000)
+    CALL addEmployee("Raj", "IT", 65000)
+    CALL filterByDepartment("IT")  
+    // Should print Emma and Raj
