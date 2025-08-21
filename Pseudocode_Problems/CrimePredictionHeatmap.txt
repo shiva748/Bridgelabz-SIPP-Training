@@ -1,0 +1,17 @@
+Graph cityZones
+// Each node = zone
+// Each edge = connection between zones
+// Risk value stored at each node
+
+method DFS(node, visited, threshold):
+    mark node as visited
+    if node.risk > threshold:
+        mark node as high-risk
+    for neighbor in node.neighbors:
+        if neighbor not visited:
+            DFS(neighbor, visited, threshold)
+
+main:
+    for each zone in cityZones:
+        if zone not visited:
+            DFS(zone, visited, thresholdRisk)
