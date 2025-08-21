@@ -1,0 +1,12 @@
+class Transaction {
+    attributes: transactionId, merchant, amount, date
+}
+
+
+method generateReport(transactions):
+    groupedData = transactions.stream()
+        .groupBy(merchant, month(date))
+        .mapToSummary(amount: sum, count, average)
+
+    for each (merchant, month) in groupedData:
+        print merchant, month, groupedData[merchant, month]
