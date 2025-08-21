@@ -1,0 +1,26 @@
+CLASS Member
+    ATTRIBUTES:
+        name
+        id
+        membershipDate (date format)
+    CONSTRUCTOR(name, id, membershipDate):
+        SET this.name = name
+        SET this.id = id
+        SET this.membershipDate = membershipDate
+    METHOD isMembershipValid():
+        CALCULATE daysSinceJoined = CurrentDate - membershipDate
+        IF daysSinceJoined <= 365 THEN
+            RETURN true
+        ELSE
+            RETURN false
+    METHOD displayInfo():
+        PRINT name
+        PRINT id
+        PRINT membershipDate
+        PRINT "Membership Valid: Yes" IF isMembershipValid() ELSE "No"
+
+MAIN PROGRAM:
+    CREATE Member1 with name="Alice", id=101, membershipDate="2024-08-14"
+    CREATE Member2 with name="Bob", id=102, membershipDate="2022-05-10"
+    CALL displayInfo() for Member1
+    CALL displayInfo() for Member2
