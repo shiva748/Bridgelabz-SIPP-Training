@@ -1,0 +1,38 @@
+CLASS Item
+    PROPERTY name: STRING
+    PROPERTY price: DOUBLE
+
+    CONSTRUCTOR(name, price)
+        this.name ← name
+        this.price ← price
+END CLASS
+
+CLASS ShoppingCart
+    PROPERTY items: LIST<Item>
+
+    CONSTRUCTOR()
+        items ← EMPTY LIST
+
+    METHOD addItem(item: Item)
+        items.ADD(item)
+    END METHOD
+
+    GENERIC METHOD calculateTotalPrice<T extends Item>(list: LIST<T>) RETURNS DOUBLE
+        total ← 0
+        FOR EACH item IN list
+            total ← total + item.price
+        END FOR
+        RETURN total
+    END METHOD
+END CLASS
+
+MAIN
+    cart ← NEW ShoppingCart()
+
+    cart.addItem(NEW Item("Laptop", 80000))
+    cart.addItem(NEW Item("Mouse", 500))
+    cart.addItem(NEW Item("Headphones", 2000))
+
+    total ← cart.calculateTotalPrice(cart.items)
+    PRINT "Total Price: ₹" + total
+END MAIN
