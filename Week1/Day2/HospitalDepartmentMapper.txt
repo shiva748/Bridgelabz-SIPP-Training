@@ -1,0 +1,72 @@
+PSEUDOCODE: Hospital Department Mapper
+
+CLASS Doctor:
+    doctorId: string
+    name: string
+    specialization: string
+    experienceYears: integer
+    department: string
+    
+    CONSTRUCTOR(doctorId, name, specialization, experienceYears, department):
+        this.doctorId = doctorId
+        this.name = name
+        this.specialization = specialization
+        this.experienceYears = experienceYears
+        this.department = department
+
+CLASS HospitalDepartmentMapper:
+    departmentMap: Map<string, List<Doctor>>
+    
+    CONSTRUCTOR():
+        departmentMap = NEW HashMap<>()
+    
+    METHOD addDoctor(doctor: Doctor):
+        department = doctor.department
+        IF departmentMap does not contain department:
+            departmentMap.put(department, NEW ArrayList<>())
+        departmentMap.get(department).add(doctor)
+        PRINT "Added doctor: " + doctor.name + " to " + department
+    
+    METHOD getDoctorsByDepartment(department: string):
+        RETURN departmentMap.getOrDefault(department, empty list)
+    
+    METHOD filterBySpecialization(specialization: string):
+        result = NEW ArrayList<Doctor>()
+        FOR EACH department IN departmentMap.keySet():
+            FOR EACH doctor IN departmentMap.get(department):
+                IF doctor.specialization == specialization:
+                    result.add(doctor)
+        RETURN result
+    
+    METHOD filterByExperience(minExperience: integer):
+        result = NEW ArrayList<Doctor>()
+        FOR EACH department IN departmentMap.keySet():
+            FOR EACH doctor IN departmentMap.get(department):
+                IF doctor.experienceYears >= minExperience:
+                    result.add(doctor)
+        RETURN result
+    
+    METHOD displayDepartmentDoctors(department: string):
+        doctors = getDoctorsByDepartment(department)
+        IF doctors.isEmpty():
+            PRINT "No doctors found in " + department
+            RETURN
+        
+        PRINT "=== " + department + " Department ==="
+        FOR EACH doctor IN doctors:
+            PRINT doctor.name + " - " + doctor.specialization
+
+MAIN:
+    hospital = NEW HospitalDepartmentMapper()
+    
+    hospital.addDoctor(NEW Doctor("D001", "Dr. Smith", "Cardiology", 15, "Cardiology"))
+    hospital.addDoctor(NEW Doctor("D002", "Dr. Johnson", "Neurology", 8, "Neurology"))
+    hospital.addDoctor(NEW Doctor("D003", "Dr. Brown", "Cardiology", 12, "Cardiology"))
+    
+    hospital.displayDepartmentDoctors("Cardiology")
+    
+    cardiologists = hospital.filterBySpecialization("Cardiology")
+    PRINT "Cardiologists: " + cardiologists.size()
+    
+    experiencedDoctors = hospital.filterByExperience(10)
+    PRINT "Doctors with 10+ years experience: " + experiencedDoctors.size()

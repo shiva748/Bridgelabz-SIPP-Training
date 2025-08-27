@@ -1,0 +1,70 @@
+PSEUDOCODE: Banking Portal
+
+CLASS Account:
+    accountNumber: string
+    accountHolder: string
+    balance: double
+    
+    CONSTRUCTOR(accountNumber, accountHolder, balance):
+        this.accountNumber = accountNumber
+        this.accountHolder = accountHolder
+        this.balance = balance
+    
+    METHOD deposit(amount: double):
+        balance = balance + amount
+        PRINT "Deposited: $" + amount
+    
+    METHOD withdraw(amount: double):
+        IF amount <= balance:
+            balance = balance - amount
+            PRINT "Withdrew: $" + amount
+        ELSE:
+            PRINT "Insufficient funds"
+    
+    METHOD getBalance():
+        RETURN balance
+    
+    METHOD displayAccount():
+        PRINT "Account: " + accountNumber
+        PRINT "Holder: " + accountHolder
+        PRINT "Balance: $" + balance
+
+CLASS SavingAccount EXTENDS Account:
+    minimumBalance: double
+    
+    CONSTRUCTOR(accountNumber, accountHolder, balance):
+        SUPER(accountNumber, accountHolder, balance)
+        minimumBalance = 100.0
+    
+    METHOD withdraw(amount: double):
+        IF balance - amount >= minimumBalance:
+            balance = balance - amount
+            PRINT "Withdrew: $" + amount + " from Savings"
+        ELSE:
+            PRINT "Cannot withdraw below minimum balance of $" + minimumBalance
+
+CLASS CurrentAccount EXTENDS Account:
+    overdraftLimit: double
+    
+    CONSTRUCTOR(accountNumber, accountHolder, balance):
+        SUPER(accountNumber, accountHolder, balance)
+        overdraftLimit = 500.0
+    
+    METHOD withdraw(amount: double):
+        IF balance - amount >= -overdraftLimit:
+            balance = balance - amount
+            PRINT "Withdrew: $" + amount + " from Current Account"
+        ELSE:
+            PRINT "Exceeded overdraft limit"
+
+MAIN:
+    saving = NEW SavingAccount("SA001", "John Doe", 1000.0)
+    current = NEW CurrentAccount("CA001", "Jane Smith", 2000.0)
+    
+    saving.displayAccount()
+    saving.withdraw(950.0)
+    saving.withdraw(100.0)
+    
+    current.displayAccount()
+    current.withdraw(2400.0)
+    current.withdraw(100.0)

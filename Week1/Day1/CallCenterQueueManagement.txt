@@ -1,0 +1,119 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Customer {
+    private String name;
+    private int customerId;
+    private String priority;
+    private String issue;
+    
+    public Customer(String name, int customerId, String priority, String issue) {
+        this.name = name;
+        this.customerId = customerId;
+        this.priority = priority.toLowerCase();
+        this.issue = issue;
+    }
+    
+    public String getName() { return name; }
+    public int getCustomerId() { return customerId; }
+    public String getPriority() { return priority; }
+    public String getIssue() { return issue; }
+    
+    @Override
+    public String toString() {
+        return "Customer{" +
+               "name='" + name + '\'' +
+               ", id=" + customerId +
+               ", priority='" + priority + '\'' +
+               ", issue='" + issue + '\'' +
+               '}';
+    }
+}
+
+class CallCenter {
+    private Queue<Customer> normalQueue;
+    private Queue<Customer> emergencyQueue;
+    private int nextCustomerId;
+    
+    public CallCenter() {
+        normalQueue = new LinkedList<>();
+        emergencyQueue = new LinkedList<>();
+        nextCustomerId = 1;
+    }
+    
+    public void addCustomer(String name, String priority, String issue) {
+        Customer customer = new Customer(name, nextCustomerId++, priority, issue);
+        
+        if (priority.equalsIgnoreCase("emergency")) {
+            emergencyQueue.add(customer);
+            System.out.println("Emergency customer added: " + customer);
+        } else {
+            normalQueue.add(customer);
+            System.out.println("Normal customer added: " + customer);
+        }
+    }
+    
+    public Customer serveNextCustomer() {
+        if (!emergencyQueue.isEmpty()) {
+            Customer customer = emergencyQueue.poll();
+            System.out.println("Serving emergency customer: " + customer);
+            return customer;
+        } else if (!normalQueue.isEmpty()) {
+            Customer customer = normalQueue.poll();
+            System.out.println("Serving normal customer: " + customer);
+            return customer;
+        } else {
+            System.out.println("No customers in queue!");
+            return null;
+        }
+    }
+    
+    public void displayQueueStatus() {
+        System.out.println("=== Call Center Queue Status ===");
+        System.out.println("Emergency queue size: " + emergencyQueue.size());
+        System.out.println("Normal queue size: " + normalQueue.size());
+        
+        if (!emergencyQueue.isEmpty()) {
+            System.out.println("Next emergency customer: " + emergencyQueue.peek());
+        }
+        if (!normalQueue.isEmpty()) {
+            System.out.println("Next normal customer: " + normalQueue.peek());
+        }
+        System.out.println("===============================");
+    }
+    
+    public void clearQueues() {
+        emergencyQueue.clear();
+        normalQueue.clear();
+        System.out.println("All queues cleared");
+    }
+    
+    public int getEmergencyQueueSize() { return emergencyQueue.size(); }
+    public int getNormalQueueSize() { return normalQueue.size(); }
+}
+
+public class CallCenterQueueManagement {
+    public static void main(String[] args) {
+        CallCenter callCenter = new CallCenter();
+        
+        callCenter.addCustomer("Alice", "normal", "Billing inquiry");
+        callCenter.addCustomer("Bob", "emergency", "Service outage");
+        callCenter.addCustomer("Charlie", "normal", "Technical support");
+        callCenter.addCustomer("David", "emergency", "Security breach");
+        callCenter.addCustomer("Eve", "normal", "Account setup");
+        
+        callCenter.displayQueueStatus();
+        
+        System.out.println("\n--- Serving customers ---");
+        callCenter.serveNextCustomer();
+        callCenter.serveNextCustomer();
+        callCenter.serveNextCustomer();
+        
+        callCenter.displayQueueStatus();
+        
+        System.out.println("\n--- Serving remaining customers ---");
+        callCenter.serveNextCustomer();
+        callCenter.serveNextCustomer();
+        callCenter.serveNextCustomer();
+    }
+}

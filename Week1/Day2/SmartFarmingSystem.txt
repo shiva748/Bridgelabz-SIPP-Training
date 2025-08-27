@@ -1,0 +1,59 @@
+PSEUDOCODE: Smart Farming System
+
+ABSTRACT CLASS Crop:
+    name: string
+    area: double
+    growthDays: integer
+    
+    CONSTRUCTOR(name, area, growthDays)
+    ABSTRACT METHOD calculateWaterRequirement(): double
+    ABSTRACT METHOD getHarvestingMethod(): string
+    ABSTRACT METHOD getOptimalHarvestDay(): integer
+    
+    METHOD displayInfo():
+        PRINT "Crop: " + name
+        PRINT "Area: " + area + " hectares"
+        PRINT "Growth Days: " + growthDays
+        PRINT "Water Requirement: " + calculateWaterRequirement()
+        PRINT "Harvesting Method: " + getHarvestingMethod()
+        PRINT "Optimal Harvest Day: " + getOptimalHarvestDay()
+
+CLASS Rice EXTENDS Crop:
+    WATER_PER_HECTARE = 1500
+    
+    CONSTRUCTOR(area, growthDays):
+        SUPER("Rice", area, growthDays)
+    
+    METHOD calculateWaterRequirement():
+        RETURN area * WATER_PER_HECTARE
+    
+    METHOD getHarvestingMethod():
+        RETURN "Combine Harvester"
+    
+    METHOD getOptimalHarvestDay():
+        RETURN growthDays - 5
+
+CLASS Wheat EXTENDS Crop:
+    WATER_PER_HECTARE = 800
+    
+    CONSTRUCTOR(area, growthDays):
+        SUPER("Wheat", area, growthDays)
+    
+    METHOD calculateWaterRequirement():
+        RETURN area * WATER_PER_HECTARE
+    
+    METHOD getHarvestingMethod():
+        RETURN "Thresher"
+    
+    METHOD getOptimalHarvestDay():
+        RETURN growthDays - 7
+
+MAIN:
+    rice = NEW Rice(2.5, 120)
+    wheat = NEW Wheat(3.0, 90)
+    
+    rice.displayInfo()
+    wheat.displayInfo()
+    
+    totalWater = rice.calculateWaterRequirement() + wheat.calculateWaterRequirement()
+    PRINT "Total water needed: " + totalWater + " liters"

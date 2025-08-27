@@ -1,0 +1,34 @@
+PSEUDOCODE: Online Quiz Timer
+
+CLASS QuizTimer:
+    timeSlots: array of integers
+    currentQuestion: integer
+    totalQuestions: integer
+    warningThreshold: integer
+    
+    CONSTRUCTOR(totalQuestions, timePerQuestion, warningThreshold):
+        this.totalQuestions = totalQuestions
+        this.timeSlots = array of size totalQuestions
+        this.warningThreshold = warningThreshold
+        FOR i FROM 0 TO totalQuestions - 1:
+            timeSlots[i] = timePerQuestion
+    
+    METHOD startQuiz():
+        PRINT "Quiz started with " + totalQuestions + " questions"
+        FOR currentQuestion FROM 0 TO totalQuestions - 1:
+            PRINT "=== Question " + (currentQuestion + 1) + " ==="
+            startQuestionTimer()
+    
+    METHOD startQuestionTimer():
+        timeRemaining = timeSlots[currentQuestion]
+        WHILE timeRemaining > 0:
+            PRINT "Time remaining: " + timeRemaining + " seconds"
+            IF timeRemaining <= warningThreshold:
+                PRINT "WARNING: Time running out for question " + (currentQuestion + 1)
+            WAIT 1 second
+            timeRemaining = timeRemaining - 1
+        PRINT "Time's up for question " + (currentQuestion + 1)
+
+MAIN:
+    quiz = NEW QuizTimer(5, 10, 3)
+    quiz.startQuiz()

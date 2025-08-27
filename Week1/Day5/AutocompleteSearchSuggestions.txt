@@ -1,0 +1,63 @@
+PSEUDOCODE: Autocomplete Search Suggestions
+
+CLASS TrieNode:
+    children: Map<char, TrieNode>
+    isEndOfWord: boolean
+    popularity: integer
+    
+    CONSTRUCTOR():
+        children = NEW HashMap<>()
+        isEndOfWord = false
+        popularity = 0
+
+CLASS Trie:
+    root: TrieNode
+    
+    CONSTRUCTOR():
+        root = NEW TrieNode()
+    
+    METHOD insert(word: string, popularity: integer):
+        node = root
+        FOR EACH char IN word.toCharArray():
+            IF NOT node.children.containsKey(char):
+                node.children.put(char, NEW TrieNode())
+            node = node.children.get(char)
+        node.isEndOfWord = true
+        node.popularity = popularity
+    
+    METHOD searchPrefix(prefix: string): List<string>
+        node = root
+        FOR EACH char IN prefix.toCharArray():
+            IF NOT node.children.containsKey(char):
+                RETURN empty list
+            node = node.children.get(char)
+        
+        result = NEW ArrayList<string>()
+        collectWords(node, prefix, result)
+        RETURN result
+    
+    METHOD collectWords(node: TrieNode, currentWord: string, result: List<string>):
+        IF node.isEndOfWord:
+            result.add(currentWord + " (popularity: " + node.popularity + ")")
+        
+        FOR EACH char IN node.children.keySet():
+            collectWords(node.children.get(char), currentWord + char, result)
+
+MAIN:
+    trie = NEW Trie()
+    
+    trie.insert("pizza hut", 100)
+    trie.insert("pizza point", 80)
+    trie.insert("pita bread", 120)
+    trie.insert("pizzeria", 90)
+    
+    suggestions = trie.searchPrefix("pi")
+    PRINT "Suggestions for 'pi':"
+    FOR EACH suggestion IN suggestions:
+        PRINT suggestion
+    
+    trie.insert("pineapple cafe", 150)
+    newSuggestions = trie.searchPrefix("pi")
+    PRINT "\nSuggestions after adding 'pineapple cafe':"
+    FOR EACH suggestion IN newSuggestions:
+        PRINT suggestion

@@ -1,0 +1,74 @@
+PSEUDOCODE: Online Store Cart System
+
+CLASS Item:
+    itemId: string
+    name: string
+    price: double
+    quantity: integer
+    
+    CONSTRUCTOR(itemId, name, price, quantity):
+        this.itemId = itemId
+        this.name = name
+        this.price = price
+        this.quantity = quantity
+    
+    METHOD getTotalPrice():
+        RETURN price * quantity
+
+CLASS ShoppingCart:
+    items: List<Item>
+    
+    CONSTRUCTOR():
+        items = NEW ArrayList<>()
+    
+    METHOD addItem(item: Item):
+        items.add(item)
+        PRINT "Added item: " + item.name
+    
+    METHOD removeItem(itemId: string):
+        FOR EACH item IN items:
+            IF item.itemId == itemId:
+                items.remove(item)
+                PRINT "Removed item: " + item.name
+                RETURN
+        PRINT "Item not found: " + itemId
+    
+    METHOD updateQuantity(itemId: string, newQuantity: integer):
+        FOR EACH item IN items:
+            IF item.itemId == itemId:
+                item.quantity = newQuantity
+                PRINT "Updated quantity for " + item.name
+                RETURN
+        PRINT "Item not found: " + itemId
+    
+    METHOD calculateTotalPrice():
+        total = 0.0
+        FOR EACH item IN items:
+            total = total + item.getTotalPrice()
+        RETURN total
+    
+    METHOD displayCart():
+        IF items.isEmpty():
+            PRINT "Shopping cart is empty"
+            RETURN
+        
+        PRINT "=== Shopping Cart ==="
+        FOR EACH item IN items:
+            PRINT item.name + " x" + item.quantity + " - $" + item.getTotalPrice()
+        
+        total = calculateTotalPrice()
+        PRINT "Total: $" + total
+
+MAIN:
+    cart = NEW ShoppingCart()
+    
+    cart.addItem(NEW Item("I001", "Laptop", 999.99, 1))
+    cart.addItem(NEW Item("I002", "Mouse", 25.50, 2))
+    cart.addItem(NEW Item("I003", "Keyboard", 75.00, 1))
+    
+    cart.displayCart()
+    
+    cart.updateQuantity("I002", 3)
+    cart.removeItem("I003")
+    
+    cart.displayCart()

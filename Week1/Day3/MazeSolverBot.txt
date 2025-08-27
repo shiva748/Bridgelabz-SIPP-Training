@@ -1,0 +1,60 @@
+PSEUDOCODE: Maze Solver Bot
+
+FUNCTION solveMaze(maze: 2D array, x: integer, y: integer, path: List<string>): boolean
+    rows = maze.length
+    cols = maze[0].length
+    
+    IF x < 0 OR x >= rows OR y < 0 OR y >= cols:
+        RETURN false
+    
+    IF maze[x][y] == 'W':
+        RETURN false
+    
+    IF maze[x][y] == 'E':
+        path.add("(" + x + "," + y + ")")
+        RETURN true
+    
+    IF maze[x][y] == 'V':
+        RETURN false
+    
+    maze[x][y] = 'V'
+    path.add("(" + x + "," + y + ")")
+    
+    IF solveMaze(maze, x+1, y, path): RETURN true
+    IF solveMaze(maze, x-1, y, path): RETURN true
+    IF solveMaze(maze, x, y+1, path): RETURN true
+    IF solveMaze(maze, x, y-1, path): RETURN true
+    
+    path.removeLast()
+    maze[x][y] = '.'
+    RETURN false
+
+FUNCTION findPath(maze: 2D array, startX: integer, startY: integer): List<string>
+    path = NEW List<string>()
+    tempMaze = COPY maze
+    
+    IF solveMaze(tempMaze, startX, startY, path):
+        RETURN path
+    ELSE:
+        RETURN empty list
+
+MAIN:
+    maze = [
+        ['.', '.', '.', 'W', '.'],
+        ['.', 'W', '.', 'W', '.'],
+        ['.', 'W', '.', '.', '.'],
+        ['.', '.', 'W', 'W', '.'],
+        ['.', '.', '.', '.', 'E']
+    ]
+    
+    startX = 0
+    startY = 0
+    
+    path = findPath(maze, startX, startY)
+    
+    IF path.isEmpty():
+        PRINT "No path found!"
+    ELSE:
+        PRINT "Path found:"
+        FOR EACH step IN path:
+            PRINT step

@@ -1,0 +1,82 @@
+import java.util.Stack;
+
+class TextEditor {
+    private StringBuilder text;
+    private Stack<String> undoStack;
+    
+    public TextEditor() {
+        text = new StringBuilder();
+        undoStack = new Stack<>();
+    }
+    
+    public void addText(String newText) {
+        undoStack.push(text.toString());
+        text.append(newText);
+        System.out.println("Added text: " + newText);
+        System.out.println("Current text: " + text.toString());
+    }
+    
+    public void deleteText(int n) {
+        if (text.length() == 0) {
+            System.out.println("No text to delete!");
+            return;
+        }
+        
+        undoStack.push(text.toString());
+        
+        int deleteLength = Math.min(n, text.length());
+        text.delete(text.length() - deleteLength, text.length());
+        System.out.println("Deleted " + deleteLength + " characters");
+        System.out.println("Current text: " + text.toString());
+    }
+    
+    public void undo() {
+        if (undoStack.isEmpty()) {
+            System.out.println("Nothing to undo!");
+            return;
+        }
+        
+        String previousState = undoStack.pop();
+        text = new StringBuilder(previousState);
+        System.out.println("Undo performed");
+        System.out.println("Current text: " + text.toString());
+    }
+    
+    public void displayText() {
+        System.out.println("Current text: " + text.toString());
+    }
+    
+    public void clearText() {
+        undoStack.push(text.toString());
+        text = new StringBuilder();
+        System.out.println("Text cleared");
+    }
+    
+    public String getText() {
+        return text.toString();
+    }
+}
+
+public class UndoFeatureTextEditor {
+    public static void main(String[] args) {
+        TextEditor editor = new TextEditor();
+        
+        editor.addText("Hello");
+        editor.addText(" World");
+        editor.addText("!");
+        
+        editor.deleteText(3);
+        
+        editor.undo();
+        
+        editor.addText(" How are you?");
+        
+        editor.undo();
+        editor.undo();
+        editor.undo();
+        
+        editor.undo();
+        
+        editor.displayText();
+    }
+}

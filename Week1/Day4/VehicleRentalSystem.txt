@@ -1,0 +1,62 @@
+PSEUDOCODE: Vehicle Rental System
+
+INTERFACE Rentable:
+    METHOD rent(): void
+    METHOD returnVehicle(): void
+
+CLASS Vehicle:
+    vehicleId: string
+    model: string
+    rentalPrice: double
+    
+    CONSTRUCTOR(vehicleId, model, rentalPrice):
+        this.vehicleId = vehicleId
+        this.model = model
+        this.rentalPrice = rentalPrice
+
+CLASS Car EXTENDS Vehicle IMPLEMENTS Rentable:
+    numberOfDoors: integer
+    
+    CONSTRUCTOR(vehicleId, model, rentalPrice, numberOfDoors):
+        SUPER(vehicleId, model, rentalPrice)
+        this.numberOfDoors = numberOfDoors
+    
+    METHOD rent():
+        PRINT "Car " + model + " rented."
+    
+    METHOD returnVehicle():
+        PRINT "Car " + model + " returned."
+
+CLASS Bike EXTENDS Vehicle IMPLEMENTS Rentable:
+    hasCarrier: boolean
+    
+    CONSTRUCTOR(vehicleId, model, rentalPrice, hasCarrier):
+        SUPER(vehicleId, model, rentalPrice)
+        this.hasCarrier = hasCarrier
+    
+    METHOD rent():
+        PRINT "Bike " + model + " rented."
+    
+    METHOD returnVehicle():
+        PRINT "Bike " + model + " returned."
+
+CLASS RentalFactory:
+    METHOD createVehicle(type: string, vehicleId: string, model: string, rentalPrice: double, extra: any):
+        IF type == "Car":
+            RETURN NEW Car(vehicleId, model, rentalPrice, extra)
+        ELSE IF type == "Bike":
+            RETURN NEW Bike(vehicleId, model, rentalPrice, extra)
+        ELSE:
+            RETURN NULL
+
+MAIN:
+    factory = NEW RentalFactory()
+    
+    car = factory.createVehicle("Car", "C001", "Toyota Camry", 50.0, 4)
+    bike = factory.createVehicle("Bike", "B001", "Yamaha FZ", 15.0, true)
+    
+    car.rent()
+    bike.rent()
+    
+    car.returnVehicle()
+    bike.returnVehicle()

@@ -1,0 +1,72 @@
+PSEUDOCODE: Food Delivery System
+
+CLASS Customer:
+    customerId: string
+    name: string
+    address: string
+    phone: string
+    
+    CONSTRUCTOR(customerId, name, address, phone)
+
+CLASS Restaurant:
+    restaurantId: string
+    name: string
+    cuisine: string
+    address: string
+    
+    CONSTRUCTOR(restaurantId, name, cuisine, address)
+
+CLASS DeliveryBoy:
+    deliveryBoyId: string
+    name: string
+    vehicle: string
+    phone: string
+    
+    CONSTRUCTOR(deliveryBoyId, name, vehicle, phone)
+
+CLASS Order:
+    orderId: string
+    customer: Customer
+    restaurant: Restaurant
+    deliveryBoy: DeliveryBoy
+    items: List<string>
+    totalAmount: double
+    status: string
+    
+    CONSTRUCTOR(orderId, customer, restaurant, deliveryBoy):
+        this.orderId = orderId
+        this.customer = customer
+        this.restaurant = restaurant
+        this.deliveryBoy = deliveryBoy
+        items = NEW List<string>()
+        totalAmount = 0.0
+        status = "PLACED"
+    
+    METHOD addItem(itemName: string, price: double):
+        items.add(itemName)
+        totalAmount = totalAmount + price
+    
+    METHOD updateStatus(newStatus: string):
+        status = newStatus
+    
+    METHOD displayOrder():
+        PRINT "Order ID: " + orderId
+        PRINT "Customer: " + customer.name
+        PRINT "Restaurant: " + restaurant.name
+        PRINT "Delivery Boy: " + deliveryBoy.name
+        PRINT "Items: " + items
+        PRINT "Total: $" + totalAmount
+        PRINT "Status: " + status
+
+MAIN:
+    customer = NEW Customer("C001", "John Doe", "123 Main St", "555-1234")
+    restaurant = NEW Restaurant("R001", "Pizza Palace", "Italian", "456 Food Ave")
+    deliveryBoy = NEW DeliveryBoy("D001", "Mike Smith", "Bike", "555-5678")
+    
+    order = NEW Order("O001", customer, restaurant, deliveryBoy)
+    order.addItem("Margherita Pizza", 12.99)
+    order.addItem("Garlic Bread", 4.99)
+    
+    order.displayOrder()
+    order.updateStatus("PREPARING")
+    order.displayOrder()

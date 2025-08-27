@@ -1,0 +1,79 @@
+import java.time.LocalDate;
+import java.time.Period;
+
+class Member {
+    private String name;
+    private int memberId;
+    private LocalDate membershipDate;
+    private LocalDate expiryDate;
+    
+    public Member(String name, int memberId, LocalDate membershipDate) {
+        this.name = name;
+        this.memberId = memberId;
+        this.membershipDate = membershipDate;
+        this.expiryDate = membershipDate.plusYears(1);
+    }
+    
+    public boolean isMembershipValid() {
+        LocalDate today = LocalDate.now();
+        return !today.isAfter(expiryDate);
+    }
+    
+    public int getRemainingDays() {
+        LocalDate today = LocalDate.now();
+        if (today.isAfter(expiryDate)) {
+            return 0;
+        }
+        Period period = Period.between(today, expiryDate);
+        return period.getDays() + period.getMonths() * 30 + period.getYears() * 365;
+    }
+    
+    public void renewMembership() {
+        LocalDate today = LocalDate.now();
+        if (today.isAfter(expiryDate)) {
+            membershipDate = today;
+        } else {
+            membershipDate = expiryDate;
+        }
+        expiryDate = membershipDate.plusYears(1);
+        System.out.println("Membership renewed successfully!");
+    }
+    
+    public void displayMemberInfo() {
+        System.out.println("Member ID: " + memberId);
+        System.out.println("Name: " + name);
+        System.out.println("Membership Date: " + membershipDate);
+        System.out.println("Expiry Date: " + expiryDate);
+        System.out.println("Valid: " + isMembershipValid());
+        System.out.println("Days Remaining: " + getRemainingDays());
+    }
+    
+    public String getName() { return name; }
+    public int getMemberId() { return memberId; }
+    public LocalDate getMembershipDate() { return membershipDate; }
+    public LocalDate getExpiryDate() { return expiryDate; }
+}
+
+public class LibraryMembershipTracker {
+    public static void main(String[] args) {
+        LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6);
+        Member member = new Member("John Doe", 1001, sixMonthsAgo);
+        
+        member.displayMemberInfo();
+        
+        if (member.isMembershipValid()) {
+            System.out.println("Membership is still valid!");
+        } else {
+            System.out.println("Membership has expired!");
+        }
+        
+        if (!member.isMembershipValid()) {
+            member.renewMembership();
+            member.displayMemberInfo();
+        }
+        
+        LocalDate oneYearAgo = LocalDate.now().minusYears(1).minusDays(1);
+        Member expiredMember = new Member("Jane Smith", 1002, oneYearAgo);
+        expiredMember.displayMemberInfo();
+    }
+}

@@ -1,0 +1,71 @@
+PSEUDOCODE: Patient Record Hashing
+
+CLASS Patient:
+    patientId: string
+    name: string
+    age: integer
+    condition: string
+    phone: string
+    
+    CONSTRUCTOR(patientId, name, age, condition, phone)
+    
+    METHOD getPatientId(): string
+    METHOD getName(): string
+
+CLASS PatientDatabase:
+    patientMap: HashMap<string, Patient>
+    
+    CONSTRUCTOR():
+        patientMap = NEW HashMap<>()
+    
+    METHOD addPatient(patient: Patient):
+        patientMap.put(patient.getPatientId(), patient)
+        PRINT "Added patient: " + patient.getName()
+    
+    METHOD getPatient(patientId: string):
+        IF patientMap.containsKey(patientId):
+            RETURN patientMap.get(patientId)
+        ELSE:
+            PRINT "Patient not found: " + patientId
+            RETURN NULL
+    
+    METHOD updatePatient(patientId: string, newCondition: string):
+        IF patientMap.containsKey(patientId):
+            patient = patientMap.get(patientId)
+            patient.condition = newCondition
+            PRINT "Updated patient: " + patient.getName()
+        ELSE:
+            PRINT "Patient not found: " + patientId
+    
+    METHOD deletePatient(patientId: string):
+        IF patientMap.containsKey(patientId):
+            patient = patientMap.remove(patientId)
+            PRINT "Deleted patient: " + patient.getName()
+        ELSE:
+            PRINT "Patient not found: " + patientId
+    
+    METHOD getAllPatients():
+        RETURN patientMap.values()
+    
+    METHOD displayAllPatients():
+        PRINT "=== Patient Database ==="
+        FOR EACH patient IN patientMap.values():
+            PRINT patient.getPatientId() + ": " + patient.getName() + " - " + patient.condition
+
+MAIN:
+    database = NEW PatientDatabase()
+    
+    database.addPatient(NEW Patient("P001", "John Smith", 35, "Hypertension", "555-1234"))
+    database.addPatient(NEW Patient("P002", "Jane Doe", 28, "Diabetes", "555-5678"))
+    database.addPatient(NEW Patient("P003", "Bob Wilson", 42, "Asthma", "555-9012"))
+    
+    database.displayAllPatients()
+    
+    patient = database.getPatient("P002")
+    IF patient != NULL:
+        PRINT "Found patient: " + patient.getName()
+    
+    database.updatePatient("P001", "Hypertension Controlled")
+    database.deletePatient("P003")
+    
+    database.displayAllPatients()

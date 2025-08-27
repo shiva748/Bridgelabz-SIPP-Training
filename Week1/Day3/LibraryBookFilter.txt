@@ -1,0 +1,65 @@
+PSEUDOCODE: Library Book Filter
+
+CLASS Book:
+    title: string
+    author: string
+    publicationYear: integer
+    rating: double
+    genre: string
+    
+    CONSTRUCTOR(title, author, publicationYear, rating, genre)
+    
+    METHOD getTitle(): string
+    METHOD getPublicationYear(): integer
+    METHOD getRating(): double
+
+CLASS Library:
+    books: List<Book>
+    
+    CONSTRUCTOR():
+        books = NEW ArrayList<>()
+    
+    METHOD addBook(book: Book):
+        books.add(book)
+    
+    METHOD filterBooksByYearAndRating(minYear: integer, minRating: double):
+        RETURN books.stream()
+            .filter(book -> book.getPublicationYear() > minYear)
+            .filter(book -> book.getRating() > minRating)
+            .collect(Collectors.toList())
+    
+    METHOD filterBooksByGenre(genre: string):
+        RETURN books.stream()
+            .filter(book -> book.genre.equalsIgnoreCase(genre))
+            .collect(Collectors.toList())
+    
+    METHOD getTopRatedBooks(limit: integer):
+        RETURN books.stream()
+            .sorted((b1, b2) -> Double.compare(b2.getRating(), b1.getRating()))
+            .limit(limit)
+            .collect(Collectors.toList())
+    
+    METHOD displayBooks(bookList: List<Book>):
+        FOR EACH book IN bookList:
+            PRINT book.title + " by " + book.author + " (" + book.publicationYear + ") - Rating: " + book.rating
+
+MAIN:
+    library = NEW Library()
+    
+    library.addBook(NEW Book("Book A", "Author X", 2020, 4.7, "Fiction"))
+    library.addBook(NEW Book("Book B", "Author Y", 2018, 4.2, "Non-Fiction"))
+    library.addBook(NEW Book("Book C", "Author Z", 2022, 4.8, "Fiction"))
+    library.addBook(NEW Book("Book D", "Author X", 2015, 3.9, "Science"))
+    library.addBook(NEW Book("Book E", "Author W", 2021, 4.9, "Fiction"))
+    
+    recentHighRated = library.filterBooksByYearAndRating(2015, 4.5)
+    PRINT "Books published after 2015 with rating > 4.5:"
+    library.displayBooks(recentHighRated)
+    
+    fictionBooks = library.filterBooksByGenre("Fiction")
+    PRINT "\nFiction books:"
+    library.displayBooks(fictionBooks)
+    
+    topBooks = library.getTopRatedBooks(3)
+    PRINT "\nTop 3 rated books:"
+    library.displayBooks(topBooks)

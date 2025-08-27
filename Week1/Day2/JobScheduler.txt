@@ -1,0 +1,59 @@
+PSEUDOCODE: Job Scheduler
+
+CLASS Job:
+    jobId: string
+    description: string
+    deadline: integer
+    processingTime: integer
+    priority: integer
+    
+    CONSTRUCTOR(jobId, description, deadline, processingTime):
+        this.jobId = jobId
+        this.description = description
+        this.deadline = deadline
+        this.processingTime = processingTime
+        this.priority = calculatePriority()
+    
+    METHOD calculatePriority():
+        RETURN deadline - processingTime
+    
+    METHOD getJobId():
+        RETURN jobId
+
+CLASS JobScheduler:
+    jobQueue: priority queue of Job
+    
+    CONSTRUCTOR():
+        jobQueue = NEW PriorityQueue<>(comparing(Job::getPriority))
+    
+    METHOD addJob(job: Job):
+        jobQueue.add(job)
+        PRINT "Added job: " + job.getJobId()
+    
+    METHOD getNextJob():
+        IF jobQueue.isEmpty():
+            PRINT "No jobs in queue"
+            RETURN NULL
+        RETURN jobQueue.peek()
+    
+    METHOD processNextJob():
+        IF jobQueue.isEmpty():
+            PRINT "No jobs to process"
+            RETURN NULL
+        job = jobQueue.poll()
+        PRINT "Processing job: " + job.getJobId()
+        RETURN job
+
+MAIN:
+    scheduler = NEW JobScheduler()
+    
+    scheduler.addJob(NEW Job("J001", "Data Backup", 30, 15))
+    scheduler.addJob(NEW Job("J002", "Report Generation", 45, 20))
+    scheduler.addJob(NEW Job("J003", "System Update", 60, 25))
+    scheduler.addJob(NEW Job("J004", "Emergency Fix", 15, 5))
+    
+    PRINT "Next job: " + scheduler.getNextJob().getJobId()
+    
+    PRINT "Processing jobs..."
+    WHILE scheduler.jobQueue.size() > 0:
+        scheduler.processNextJob()

@@ -1,0 +1,67 @@
+PSEUDOCODE: Crime Prediction Heatmap
+
+CLASS Zone:
+    zoneId: string
+    name: string
+    crimeCount: integer
+    neighbors: List<Zone>
+    
+    CONSTRUCTOR(zoneId, name, crimeCount):
+        this.zoneId = zoneId
+        this.name = name
+        this.crimeCount = crimeCount
+        neighbors = NEW ArrayList<>()
+    
+    METHOD addNeighbor(zone: Zone):
+        neighbors.add(zone)
+    
+    METHOD getRiskLevel():
+        IF crimeCount > 50: RETURN "HIGH"
+        ELSE IF crimeCount > 20: RETURN "MEDIUM"
+        ELSE: RETURN "LOW"
+
+FUNCTION dfs(zone: Zone, visited: Set<Zone>, highRiskZones: List<Zone>):
+    IF zone IN visited:
+        RETURN
+    
+    visited.add(zone)
+    
+    IF zone.getRiskLevel() == "HIGH":
+        highRiskZones.add(zone)
+    
+    FOR EACH neighbor IN zone.neighbors:
+        dfs(neighbor, visited, highRiskZones)
+
+FUNCTION findHighRiskAreas(zones: List<Zone>):
+    visited = NEW HashSet<Zone>()
+    highRiskZones = NEW ArrayList<Zone>()
+    
+    FOR EACH zone IN zones:
+        IF zone NOT IN visited:
+            dfs(zone, visited, highRiskZones)
+    
+    RETURN highRiskZones
+
+MAIN:
+    zones = NEW ArrayList<Zone>()
+    
+    zoneA = NEW Zone("Z001", "Downtown", 65)
+    zoneB = NEW Zone("Z002", "Suburb", 15)
+    zoneC = NEW Zone("Z003", "Industrial", 45)
+    zoneD = NEW Zone("Z004", "Residential", 10)
+    
+    zoneA.addNeighbor(zoneB)
+    zoneA.addNeighbor(zoneC)
+    zoneB.addNeighbor(zoneD)
+    zoneC.addNeighbor(zoneD)
+    
+    zones.add(zoneA)
+    zones.add(zoneB)
+    zones.add(zoneC)
+    zones.add(zoneD)
+    
+    highRiskAreas = findHighRiskAreas(zones)
+    
+    PRINT "High Risk Crime Areas:"
+    FOR EACH zone IN highRiskAreas:
+        PRINT zone.name + " - " + zone.crimeCount + " crimes"

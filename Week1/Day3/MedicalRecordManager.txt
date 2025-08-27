@@ -1,0 +1,75 @@
+PSEUDOCODE: Medical Record Manager
+
+INTERFACE Searchable:
+    METHOD search(keyword: string): List<MedicalRecord>
+
+INTERFACE Printable:
+    METHOD print(): string
+
+CLASS MedicalRecord:
+    recordId: string
+    patientName: string
+    diagnosis: string
+    treatment: string
+    date: string
+    
+    CONSTRUCTOR(recordId, patientName, diagnosis, treatment, date)
+    
+    METHOD getRecordId(): string
+    METHOD getPatientName(): string
+
+CLASS SummaryReport IMPLEMENTS Searchable, Printable:
+    records: List<MedicalRecord>
+    
+    CONSTRUCTOR(records):
+        this.records = records
+    
+    METHOD search(keyword: string):
+        result = NEW List<MedicalRecord>()
+        FOR EACH record IN records:
+            IF record.patientName.contains(keyword) OR record.diagnosis.contains(keyword):
+                result.add(record)
+        RETURN result
+    
+    METHOD print():
+        output = "=== Medical Summary Report ===\n"
+        FOR EACH record IN records:
+            output = output + record.patientName + " - " + record.diagnosis + "\n"
+        RETURN output
+
+CLASS DetailedReport IMPLEMENTS Searchable, Printable:
+    records: List<MedicalRecord>
+    
+    CONSTRUCTOR(records):
+        this.records = records
+    
+    METHOD search(keyword: string):
+        result = NEW List<MedicalRecord>()
+        FOR EACH record IN records:
+            IF record.treatment.contains(keyword) OR record.date.contains(keyword):
+                result.add(record)
+        RETURN result
+    
+    METHOD print():
+        output = "=== Detailed Medical Report ===\n"
+        FOR EACH record IN records:
+            output = output + "ID: " + record.recordId + "\n"
+            output = output + "Patient: " + record.patientName + "\n"
+            output = output + "Diagnosis: " + record.diagnosis + "\n"
+            output = output + "Treatment: " + record.treatment + "\n"
+            output = output + "Date: " + record.date + "\n\n"
+        RETURN output
+
+MAIN:
+    records = NEW List<MedicalRecord>()
+    records.add(NEW MedicalRecord("MR001", "John Smith", "Flu", "Rest and fluids", "2024-01-15"))
+    records.add(NEW MedicalRecord("MR002", "Jane Doe", "Fracture", "Cast and pain meds", "2024-01-16"))
+    
+    summary = NEW SummaryReport(records)
+    detailed = NEW DetailedReport(records)
+    
+    PRINT summary.print()
+    PRINT detailed.print()
+    
+    searchResults = summary.search("Flu")
+    PRINT "Search results: " + searchResults.size() + " records found"

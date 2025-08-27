@@ -1,0 +1,134 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Employee {
+    private int id;
+    private String name;
+    private String department;
+    private double salary;
+    private int yearsOfExperience;
+    
+    public Employee(int id, String name, String department, double salary, int yearsOfExperience) {
+        this.id = id;
+        this.name = name;
+        this.department = department;
+        this.salary = salary;
+        this.yearsOfExperience = yearsOfExperience;
+    }
+    
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getDepartment() { return department; }
+    public double getSalary() { return salary; }
+    public int getYearsOfExperience() { return yearsOfExperience; }
+    
+    @Override
+    public String toString() {
+        return "Employee{" +
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", department='" + department + '\'' +
+               ", salary=" + salary +
+               ", experience=" + yearsOfExperience + " years" +
+               '}';
+    }
+}
+
+public class EmployeeRecordKeeper {
+    
+    public static void main(String[] args) {
+        ArrayList<Employee> employees = new ArrayList<>();
+        
+        employees.add(new Employee(1, "Alice Johnson", "IT", 75000, 3));
+        employees.add(new Employee(2, "Bob Smith", "HR", 65000, 2));
+        employees.add(new Employee(3, "Charlie Brown", "Finance", 85000, 5));
+        employees.add(new Employee(4, "David Wilson", "IT", 80000, 4));
+        employees.add(new Employee(5, "Eva Davis", "Marketing", 70000, 3));
+        employees.add(new Employee(6, "Frank Miller", "Finance", 90000, 6));
+        employees.add(new Employee(7, "Grace Lee", "HR", 60000, 1));
+        employees.add(new Employee(8, "Henry Taylor", "IT", 82000, 5));
+        employees.add(new Employee(9, "Ivy Chen", "Marketing", 72000, 2));
+        employees.add(new Employee(10, "Jack Anderson", "Finance", 88000, 4));
+        
+        System.out.println("=== All Employees ===");
+        employees.forEach(System.out::println);
+        
+        System.out.println("\n=== IT Department Employees ===");
+        List<Employee> itEmployees = employees.stream()
+            .filter(emp -> emp.getDepartment().equalsIgnoreCase("IT"))
+            .collect(Collectors.toList());
+        
+        itEmployees.forEach(System.out::println);
+        
+        System.out.println("\n=== Finance Department Employees ===");
+        List<Employee> financeEmployees = employees.stream()
+            .filter(emp -> emp.getDepartment().equalsIgnoreCase("Finance"))
+            .collect(Collectors.toList());
+        
+        financeEmployees.forEach(System.out::println);
+        
+        System.out.println("\n=== HR Department Employees ===");
+        List<Employee> hrEmployees = employees.stream()
+            .filter(emp -> emp.getDepartment().equalsIgnoreCase("HR"))
+            .collect(Collectors.toList());
+        
+        hrEmployees.forEach(System.out::println);
+        
+        System.out.println("\n=== Marketing Department Employees ===");
+        List<Employee> marketingEmployees = employees.stream()
+            .filter(emp -> emp.getDepartment().equalsIgnoreCase("Marketing"))
+            .collect(Collectors.toList());
+        
+        marketingEmployees.forEach(System.out::println);
+        
+        System.out.println("\n=== Employee Count by Department ===");
+        Map<String, Long> departmentCount = employees.stream()
+            .collect(Collectors.groupingBy(
+                Employee::getDepartment,
+                Collectors.counting()
+            ));
+        
+        departmentCount.forEach((dept, count) -> 
+            System.out.println(dept + ": " + count + " employees")
+        );
+        
+        System.out.println("\n=== Average Salary by Department ===");
+        Map<String, Double> avgSalaryByDept = employees.stream()
+            .collect(Collectors.groupingBy(
+                Employee::getDepartment,
+                Collectors.averagingDouble(Employee::getSalary)
+            ));
+        
+        avgSalaryByDept.forEach((dept, avgSalary) -> 
+            System.out.println(dept + ": $" + String.format("%.2f", avgSalary))
+        );
+        
+        System.out.println("\n=== Highest Paid Employee by Department ===");
+        Map<String, Optional<Employee>> highestPaidByDept = employees.stream()
+            .collect(Collectors.groupingBy(
+                Employee::getDepartment,
+                Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))
+            ));
+        
+        highestPaidByDept.forEach((dept, emp) -> {
+            if (emp.isPresent()) {
+                System.out.println(dept + ": " + emp.get().getName() + 
+                                 " - $" + emp.get().getSalary());
+            }
+        });
+        
+        System.out.println("\n=== Employees with 3+ Years Experience ===");
+        List<Employee> experiencedEmployees = employees.stream()
+            .filter(emp -> emp.getYearsOfExperience() >= 3)
+            .collect(Collectors.toList());
+        
+        experiencedEmployees.forEach(System.out::println);
+        
+        double totalSalary = employees.stream()
+            .mapToDouble(Employee::getSalary)
+            .sum();
+        
+        System.out.println("\n=== Total Salary Expenditure ===");
+        System.out.println("Total: $" + String.format("%.2f", totalSalary));
+    }
+}

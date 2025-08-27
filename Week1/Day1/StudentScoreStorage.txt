@@ -1,0 +1,90 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class StudentScoreStorage {
+    
+    public static void main(String[] args) {
+        HashMap<String, Integer> studentScores = new HashMap<>();
+        
+        studentScores.put("Alice", 85);
+        studentScores.put("Bob", 92);
+        studentScores.put("Charlie", 78);
+        studentScores.put("David", 95);
+        studentScores.put("Eve", 88);
+        studentScores.put("Frank", 91);
+        studentScores.put("Grace", 87);
+        studentScores.put("Henry", 83);
+        
+        System.out.println("=== All Students and Scores ===");
+        studentScores.forEach((name, score) -> 
+            System.out.println(name + ": " + score)
+        );
+        
+        Optional<Map.Entry<String, Integer>> highestScorer = studentScores.entrySet()
+            .stream()
+            .max(Map.Entry.comparingByValue());
+        
+        if (highestScorer.isPresent()) {
+            Map.Entry<String, Integer> topStudent = highestScorer.get();
+            System.out.println("\n=== Highest Scorer ===");
+            System.out.println("Name: " + topStudent.getKey());
+            System.out.println("Score: " + topStudent.getValue());
+        } else {
+            System.out.println("No students found!");
+        }
+        
+        System.out.println("\n=== Top 3 Scorers ===");
+        studentScores.entrySet()
+            .stream()
+            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+            .limit(3)
+            .forEach(entry -> 
+                System.out.println(entry.getKey() + ": " + entry.getValue())
+            );
+        
+        double averageScore = studentScores.values()
+            .stream()
+            .mapToInt(Integer::intValue)
+            .average()
+            .orElse(0.0);
+        
+        System.out.println("\n=== Statistics ===");
+        System.out.println("Average Score: " + String.format("%.2f", averageScore));
+        
+        System.out.println("\n=== Students Above Average ===");
+        studentScores.entrySet()
+            .stream()
+            .filter(entry -> entry.getValue() > averageScore)
+            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+            .forEach(entry -> 
+                System.out.println(entry.getKey() + ": " + entry.getValue())
+            );
+        
+        System.out.println("\n=== Score Distribution ===");
+        Map<String, List<String>> scoreGroups = studentScores.entrySet()
+            .stream()
+            .collect(Collectors.groupingBy(
+                entry -> {
+                    int score = entry.getValue();
+                    if (score >= 90) return "A (90-100)";
+                    else if (score >= 80) return "B (80-89)";
+                    else if (score >= 70) return "C (70-79)";
+                    else return "D (Below 70)";
+                },
+                Collectors.mapping(Map.Entry::getKey, Collectors.toList())
+            ));
+        
+        scoreGroups.forEach((range, students) -> {
+            System.out.println(range + ": " + students.size() + " students - " + students);
+        });
+        
+        Optional<Map.Entry<String, Integer>> lowestScorer = studentScores.entrySet()
+            .stream()
+            .min(Map.Entry.comparingByValue());
+        
+        if (lowestScorer.isPresent()) {
+            System.out.println("\nLowest Score: " + lowestScorer.get().getValue() + 
+                              " by " + lowestScorer.get().getKey());
+        }
+    }
+}

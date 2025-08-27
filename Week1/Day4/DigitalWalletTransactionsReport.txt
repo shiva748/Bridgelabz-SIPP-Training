@@ -1,0 +1,86 @@
+PSEUDOCODE: Digital Wallet Transactions Report
+
+CLASS Transaction:
+    transactionId: string
+    amount: double
+    merchant: string
+    date: string
+    month: string
+    
+    CONSTRUCTOR(transactionId, amount, merchant, date):
+        this.transactionId = transactionId
+        this.amount = amount
+        this.merchant = merchant
+        this.date = date
+        this.month = extractMonth(date)
+    
+    METHOD extractMonth(date: string):
+        RETURN date.substring(0, 7)
+
+CLASS TransactionReport:
+    transactions: List<Transaction>
+    
+    CONSTRUCTOR():
+        transactions = NEW ArrayList<>()
+    
+    METHOD addTransaction(transaction: Transaction):
+        transactions.add(transaction)
+    
+    METHOD generateMerchantSummary():
+        merchantSummary = transactions.stream()
+            .collect(Collectors.groupingBy(
+                Transaction::getMerchant,
+                Collectors.summingDouble(Transaction::getAmount)
+            ))
+        
+        RETURN merchantSummary
+    
+    METHOD generateMonthlySummary():
+        monthlySummary = transactions.stream()
+            .collect(Collectors.groupingBy(
+                Transaction::getMonth,
+                Collectors.summingDouble(Transaction::getAmount)
+            ))
+        
+        RETURN monthlySummary
+    
+    METHOD generateMerchantMonthlySummary():
+        merchantMonthlySummary = transactions.stream()
+            .collect(Collectors.groupingBy(
+                Transaction::getMerchant,
+                Collectors.groupingBy(
+                    Transaction::getMonth,
+                    Collectors.summingDouble(Transaction::getAmount)
+                )
+            ))
+        
+        RETURN merchantMonthlySummary
+    
+    METHOD displaySummary(summary: Map<String, Double>):
+        FOR EACH entry IN summary.entrySet():
+            PRINT entry.getKey() + ": $" + entry.getValue()
+
+MAIN:
+    report = NEW TransactionReport()
+    
+    report.addTransaction(NEW Transaction("T001", 50.0, "Amazon", "2024-01-15"))
+    report.addTransaction(NEW Transaction("T002", 30.0, "Amazon", "2024-01-20"))
+    report.addTransaction(NEW Transaction("T003", 25.0, "Walmart", "2024-01-10"))
+    report.addTransaction(NEW Transaction("T004", 40.0, "Amazon", "2024-02-05"))
+    report.addTransaction(NEW Transaction("T005", 15.0, "Walmart", "2024-02-12"))
+    
+    merchantSummary = report.generateMerchantSummary()
+    PRINT "=== Merchant Summary ==="
+    report.displaySummary(merchantSummary)
+    
+    monthlySummary = report.generateMonthlySummary()
+    PRINT "\n=== Monthly Summary ==="
+    report.displaySummary(monthlySummary)
+    
+    merchantMonthlySummary = report.generateMerchantMonthlySummary()
+    PRINT "\n=== Merchant Monthly Summary ==="
+    FOR EACH merchant IN merchantMonthlySummary.keySet():
+        PRINT merchant + ":"
+        monthlyData = merchantMonthlySummary.get(merchant)
+        FOR EACH month IN monthlyData.keySet():
+            PRINT "  " + month + ": $" + monthlyData.get(month)

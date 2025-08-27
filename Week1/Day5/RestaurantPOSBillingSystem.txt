@@ -1,0 +1,83 @@
+PSEUDOCODE: Restaurant POS Billing System
+
+INTERFACE TaxCalculator:
+    METHOD calculateTax(price: double): double
+
+CLASS FoodTax IMPLEMENTS TaxCalculator:
+    METHOD calculateTax(price: double):
+        RETURN price * 0.05
+
+CLASS BeverageTax IMPLEMENTS TaxCalculator:
+    METHOD calculateTax(price: double):
+        RETURN price * 0.12
+
+CLASS ImportedTax IMPLEMENTS TaxCalculator:
+    METHOD calculateTax(price: double):
+        RETURN price * 0.05 + price * 0.10
+
+INTERFACE DiscountPolicy:
+    METHOD applyDiscount(total: double): double
+
+CLASS NoDiscount IMPLEMENTS DiscountPolicy:
+    METHOD applyDiscount(total: double):
+        RETURN total
+
+CLASS FlatDiscount IMPLEMENTS DiscountPolicy:
+    METHOD applyDiscount(total: double):
+        RETURN total - 100.0
+
+CLASS PercentageDiscount IMPLEMENTS DiscountPolicy:
+    METHOD applyDiscount(total: double):
+        RETURN total * 0.9
+
+CLASS BuyOneGetOne IMPLEMENTS DiscountPolicy:
+    METHOD applyDiscount(total: double):
+        RETURN total * 0.5
+
+CLASS Item:
+    name: string
+    price: double
+    taxCalculator: TaxCalculator
+    
+    CONSTRUCTOR(name, price, taxCalculator):
+        this.name = name
+        this.price = price
+        this.taxCalculator = taxCalculator
+    
+    METHOD getFinalPrice():
+        tax = taxCalculator.calculateTax(price)
+        RETURN price + tax
+
+CLASS Bill:
+    items: List<Item>
+    discountPolicy: DiscountPolicy
+    
+    CONSTRUCTOR():
+        items = NEW ArrayList<>()
+    
+    METHOD addItem(item: Item):
+        items.add(item)
+    
+    METHOD setDiscountPolicy(policy: DiscountPolicy):
+        discountPolicy = policy
+    
+    METHOD calculateTotal():
+        total = 0.0
+        FOR EACH item IN items:
+            total = total + item.getFinalPrice()
+        RETURN discountPolicy.applyDiscount(total)
+
+MAIN:
+    bill = NEW Bill()
+    
+    bill.addItem(NEW Item("Paneer Tikka", 200.0, NEW FoodTax()))
+    bill.addItem(NEW Item("Coke", 50.0, NEW BeverageTax()))
+    bill.addItem(NEW Item("Imported Cheese", 300.0, NEW ImportedTax()))
+    
+    bill.setDiscountPolicy(NEW PercentageDiscount())
+    total = bill.calculateTotal()
+    PRINT "Total Bill: ₹" + total
+    
+    bill.setDiscountPolicy(NEW BuyOneGetOne())
+    total2 = bill.calculateTotal()
+    PRINT "Total with BOGO: ₹" + total2

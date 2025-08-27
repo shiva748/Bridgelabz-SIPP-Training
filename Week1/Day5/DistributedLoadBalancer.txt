@@ -1,0 +1,47 @@
+PSEUDOCODE: Distributed Load Balancer
+
+CLASS LoadBalancer:
+    serverQueue: Queue<string>
+    
+    CONSTRUCTOR():
+        serverQueue = NEW LinkedList<>()
+    
+    METHOD addServer(serverId: string):
+        serverQueue.add(serverId)
+        PRINT "Added server: " + serverId
+    
+    METHOD removeServer(serverId: string):
+        IF serverQueue.contains(serverId):
+            serverQueue.remove(serverId)
+            PRINT "Removed server: " + serverId
+        ELSE:
+            PRINT "Server not found: " + serverId
+    
+    METHOD processRequest(requestId: string):
+        IF serverQueue.isEmpty():
+            PRINT "No servers available for request: " + requestId
+            RETURN
+        
+        server = serverQueue.poll()
+        PRINT "Request " + requestId + " → Server " + server
+        serverQueue.add(server)
+    
+    METHOD processRequests(requests: List<string>):
+        FOR EACH request IN requests:
+            processRequest(request)
+
+MAIN:
+    balancer = NEW LoadBalancer()
+    
+    balancer.addServer("S1")
+    balancer.addServer("S2")
+    balancer.addServer("S3")
+    
+    requests = ["R1", "R2", "R3", "R4", "R5", "R6"]
+    balancer.processRequests(requests)
+    
+    balancer.addServer("S4")
+    balancer.removeServer("S2")
+    
+    moreRequests = ["R7", "R8", "R9", "R10"]
+    balancer.processRequests(moreRequests)

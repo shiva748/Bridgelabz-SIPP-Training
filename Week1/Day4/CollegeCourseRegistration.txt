@@ -1,0 +1,60 @@
+PSEUDOCODE: College Course Registration
+
+CLASS Student:
+    studentId: string
+    name: string
+    enrolledCourses: List<Course>
+    
+    CONSTRUCTOR(studentId, name):
+        this.studentId = studentId
+        this.name = name
+        enrolledCourses = NEW ArrayList<>()
+    
+    METHOD enroll(course: Course):
+        enrolledCourses.add(course)
+    
+    METHOD getEnrolledCourses():
+        RETURN enrolledCourses
+
+CLASS Course:
+    courseId: string
+    courseName: string
+    maxStudents: integer
+    enrolledStudents: List<Student>
+    
+    CONSTRUCTOR(courseId, courseName, maxStudents):
+        this.courseId = courseId
+        this.courseName = courseName
+        this.maxStudents = maxStudents
+        enrolledStudents = NEW ArrayList<>()
+    
+    METHOD enrollStudent(student: Student):
+        IF enrolledStudents.size() < maxStudents:
+            enrolledStudents.add(student)
+            student.enroll(this)
+            PRINT student.name + " enrolled in " + courseName
+        ELSE:
+            PRINT "Course " + courseName + " is full"
+    
+    METHOD getEnrolledStudents():
+        RETURN enrolledStudents
+
+MAIN:
+    course1 = NEW Course("C001", "Data Structures", 30)
+    course2 = NEW Course("C002", "Algorithms", 25)
+    
+    student1 = NEW Student("S001", "Alice")
+    student2 = NEW Student("S002", "Bob")
+    
+    course1.enrollStudent(student1)
+    course1.enrollStudent(student2)
+    
+    course2.enrollStudent(student1)
+    
+    PRINT "Students enrolled in " + course1.courseName + ":"
+    FOR EACH student IN course1.getEnrolledStudents():
+        PRINT student.name
+    
+    PRINT "Students enrolled in " + course2.courseName + ":"
+    FOR EACH student IN course2.getEnrolledStudents():
+        PRINT student.name

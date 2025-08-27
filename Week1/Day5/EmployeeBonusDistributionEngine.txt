@@ -1,0 +1,63 @@
+PSEUDOCODE: Employee Bonus Distribution Engine
+
+CLASS Employee:
+    name: string
+    department: string
+    performanceRating: integer
+    baseSalary: double
+    
+    CONSTRUCTOR(name, department, performanceRating, baseSalary):
+        this.name = name
+        this.department = department
+        this.performanceRating = performanceRating
+        this.baseSalary = baseSalary
+
+CLASS BonusCalculator:
+    METHOD calculateBonus(employees: List<Employee>): Map<string, Map<string, double>>
+        departmentBonusPool = NEW HashMap<string, double>()
+        departmentTotalSalary = NEW HashMap<string, double>()
+        departmentTotalRating = NEW HashMap<string, double>()
+        
+        FOR EACH emp IN employees:
+            department = emp.department
+            departmentTotalSalary.put(department, departmentTotalSalary.getOrDefault(department, 0.0) + emp.baseSalary)
+            departmentTotalRating.put(department, departmentTotalRating.getOrDefault(department, 0.0) + emp.performanceRating)
+        
+        FOR EACH department IN departmentTotalSalary.keySet():
+            bonusPool = departmentTotalSalary.get(department) * 0.1
+            departmentBonusPool.put(department, bonusPool)
+        
+        bonusDistribution = NEW HashMap<string, Map<string, double>>()
+        
+        FOR EACH emp IN employees:
+            department = emp.department
+            totalRating = departmentTotalRating.get(department)
+            bonusPool = departmentBonusPool.get(department)
+            
+            individualShare = (emp.performanceRating / totalRating) * bonusPool
+            
+            IF NOT bonusDistribution.containsKey(department):
+                bonusDistribution.put(department, NEW HashMap<>())
+            
+            bonusDistribution.get(department).put(emp.name, individualShare)
+        
+        RETURN bonusDistribution
+
+MAIN:
+    employees = NEW ArrayList<Employee>()
+    
+    employees.add(NEW Employee("Emp-A", "IT", 5, 100000.0))
+    employees.add(NEW Employee("Emp-B", "IT", 3, 80000.0))
+    employees.add(NEW Employee("Emp-C", "IT", 2, 70000.0))
+    employees.add(NEW Employee("Emp-D", "Finance", 4, 90000.0))
+    employees.add(NEW Employee("Emp-E", "Finance", 3, 85000.0))
+    
+    calculator = NEW BonusCalculator()
+    bonusReport = calculator.calculateBonus(employees)
+    
+    PRINT "Bonus Distribution Report:"
+    FOR EACH department IN bonusReport.keySet():
+        PRINT "Department: " + department
+        deptBonuses = bonusReport.get(department)
+        FOR EACH empName IN deptBonuses.keySet():
+            PRINT "  " + empName + ": ₹" + deptBonuses.get(empName)

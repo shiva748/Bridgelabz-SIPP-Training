@@ -1,0 +1,71 @@
+PSEUDOCODE: Flight Price Analyzer
+
+CLASS Flight:
+    flightNumber: string
+    airline: string
+    price: double
+    duration: integer
+    
+    CONSTRUCTOR(flightNumber, airline, price, duration):
+        this.flightNumber = flightNumber
+        this.airline = airline
+        this.price = price
+        this.duration = duration
+    
+    METHOD getPrice(): double
+    METHOD getDuration(): integer
+
+CLASS FlightComparator IMPLEMENTS Comparator<Flight>:
+    METHOD compare(f1: Flight, f2: Flight):
+        priceCompare = Double.compare(f1.getPrice(), f2.getPrice())
+        IF priceCompare != 0:
+            RETURN priceCompare
+        ELSE:
+            RETURN Integer.compare(f1.getDuration(), f2.getDuration())
+
+FUNCTION mergeSort(flights: List<Flight>, comparator: Comparator<Flight>):
+    IF flights.size() <= 1:
+        RETURN flights
+    
+    mid = flights.size() / 2
+    left = mergeSort(flights.subList(0, mid), comparator)
+    right = mergeSort(flights.subList(mid, flights.size()), comparator)
+    
+    RETURN merge(left, right, comparator)
+
+FUNCTION merge(left: List<Flight>, right: List<Flight>, comparator: Comparator<Flight>):
+    result = NEW ArrayList<Flight>()
+    i = 0
+    j = 0
+    
+    WHILE i < left.size() AND j < right.size():
+        IF comparator.compare(left.get(i), right.get(j)) <= 0:
+            result.add(left.get(i))
+            i = i + 1
+        ELSE:
+            result.add(right.get(j))
+            j = j + 1
+    
+    WHILE i < left.size():
+        result.add(left.get(i))
+        i = i + 1
+    
+    WHILE j < right.size():
+        result.add(right.get(j))
+        j = j + 1
+    
+    RETURN result
+
+MAIN:
+    flights = NEW ArrayList<Flight>()
+    flights.add(NEW Flight("F001", "Airline A", 250.0, 120))
+    flights.add(NEW Flight("F002", "Airline B", 200.0, 150))
+    flights.add(NEW Flight("F003", "Airline C", 300.0, 90))
+    flights.add(NEW Flight("F004", "Airline A", 200.0, 180))
+    
+    comparator = NEW FlightComparator()
+    sortedFlights = mergeSort(flights, comparator)
+    
+    PRINT "Flights sorted by price and duration:"
+    FOR EACH flight IN sortedFlights:
+        PRINT flight.flightNumber + ": $" + flight.price + " - " + flight.duration + " mins"

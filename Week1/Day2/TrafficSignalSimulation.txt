@@ -1,0 +1,43 @@
+PSEUDOCODE: Traffic Signal Simulation
+
+DEFINE TrafficLight ENUM: RED, YELLOW, GREEN
+
+CLASS TrafficSignal:
+    currentLight: TrafficLight
+    redDuration: integer
+    yellowDuration: integer
+    greenDuration: integer
+    timer: integer
+    
+    CONSTRUCTOR(redDur, yellowDur, greenDur):
+        redDuration = redDur
+        yellowDuration = yellowDur
+        greenDuration = greenDur
+        currentLight = RED
+        timer = redDuration
+    
+    METHOD switchLight():
+        IF currentLight == RED:
+            currentLight = GREEN
+            timer = greenDuration
+        ELSE IF currentLight == GREEN:
+            currentLight = YELLOW
+            timer = yellowDuration
+        ELSE IF currentLight == YELLOW:
+            currentLight = RED
+            timer = redDuration
+        PRINT "Light changed to: " + currentLight
+    
+    METHOD simulate(simulationTime):
+        PRINT "Starting simulation for " + simulationTime + " seconds"
+        FOR time FROM 1 TO simulationTime:
+            PRINT "Time: " + time + " - Light: " + currentLight
+            IF timer == 1:
+                switchLight()
+            ELSE:
+                timer = timer - 1
+            WAIT 1 second
+
+MAIN:
+    signal = NEW TrafficSignal(30, 5, 45)
+    signal.simulate(120)

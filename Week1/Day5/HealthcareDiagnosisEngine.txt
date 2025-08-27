@@ -1,0 +1,64 @@
+PSEUDOCODE: Healthcare Diagnosis Engine
+
+INTERFACE DiagnosisStrategy:
+    METHOD diagnose(symptoms: List<string>): List<string>
+
+CLASS RuleBasedDiagnosis IMPLEMENTS DiagnosisStrategy:
+    METHOD diagnose(symptoms: List<string>):
+        result = NEW List<string>()
+        IF symptoms.contains("fever") AND symptoms.contains("cough"):
+            result.add("Flu")
+        IF symptoms.contains("fever") AND symptoms.contains("fatigue"):
+            result.add("COVID-19")
+        RETURN result
+
+CLASS AIBasedDiagnosis IMPLEMENTS DiagnosisStrategy:
+    METHOD diagnose(symptoms: List<string>):
+        result = NEW List<string>()
+        IF symptoms.contains("headache") AND symptoms.contains("dizziness"):
+            result.add("Migraine")
+        IF symptoms.contains("dizziness") AND symptoms.contains("nausea"):
+            result.add("Vertigo")
+        RETURN result
+
+CLASS ProbabilityBasedDiagnosis IMPLEMENTS DiagnosisStrategy:
+    METHOD diagnose(symptoms: List<string>):
+        result = NEW List<string>()
+        IF symptoms.contains("fever") AND symptoms.contains("rash"):
+            result.add("Measles")
+        IF symptoms.contains("joint pain") AND symptoms.contains("fever"):
+            result.add("Dengue")
+        RETURN result
+
+CLASS GeneticPatternDiagnosis IMPLEMENTS DiagnosisStrategy:
+    METHOD diagnose(symptoms: List<string>):
+        result = NEW List<string>()
+        IF symptoms.contains("family history") AND symptoms.contains("chronic pain"):
+            result.add("Genetic Disorder")
+        RETURN result
+
+CLASS DiagnosisContext:
+    strategy: DiagnosisStrategy
+    
+    METHOD setStrategy(strategy: DiagnosisStrategy):
+        this.strategy = strategy
+    
+    METHOD executeDiagnosis(symptoms: List<string>):
+        RETURN strategy.diagnose(symptoms)
+
+MAIN:
+    context = NEW DiagnosisContext()
+    
+    symptoms1 = ["fever", "cough", "fatigue"]
+    context.setStrategy(NEW RuleBasedDiagnosis())
+    diagnosis1 = context.executeDiagnosis(symptoms1)
+    PRINT "Diagnosis: " + diagnosis1
+    
+    symptoms2 = ["headache", "dizziness", "nausea"]
+    context.setStrategy(NEW AIBasedDiagnosis())
+    diagnosis2 = context.executeDiagnosis(symptoms2)
+    PRINT "Diagnosis: " + diagnosis2
+    
+    context.setStrategy(NEW GeneticPatternDiagnosis())
+    diagnosis3 = context.executeDiagnosis(["family history", "chronic pain"])
+    PRINT "Diagnosis: " + diagnosis3

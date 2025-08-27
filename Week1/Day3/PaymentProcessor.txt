@@ -1,0 +1,53 @@
+PSEUDOCODE: Payment Processor
+
+CLASS Transaction<T>:
+    transactionId: string
+    amount: double
+    paymentMethod: T
+    
+    CONSTRUCTOR(transactionId, amount, paymentMethod):
+        this.transactionId = transactionId
+        this.amount = amount
+        this.paymentMethod = paymentMethod
+    
+    METHOD processPayment():
+        PRINT "Processing payment of $" + amount + " using " + paymentMethod
+
+CLASS UPI:
+    upiId: string
+    
+    CONSTRUCTOR(upiId):
+        this.upiId = upiId
+    
+    METHOD getDetails():
+        RETURN "UPI ID: " + upiId
+
+CLASS Card:
+    cardNumber: string
+    expiryDate: string
+    
+    CONSTRUCTOR(cardNumber, expiryDate):
+        this.cardNumber = cardNumber
+        this.expiryDate = expiryDate
+    
+    METHOD getDetails():
+        RETURN "Card Number: " + cardNumber + ", Expiry: " + expiryDate
+
+CLASS NetBanking:
+    bankName: string
+    
+    CONSTRUCTOR(bankName):
+        this.bankName = bankName
+    
+    METHOD getDetails():
+        RETURN "Bank: " + bankName
+
+MAIN:
+    upiTransaction = NEW Transaction<UPI>("T001", 150.00, NEW UPI("user@bank"))
+    upiTransaction.processPayment()
+    
+    cardTransaction = NEW Transaction<Card>("T002", 200.00, NEW Card("1234-5678-9012-3456", "12/25"))
+    cardTransaction.processPayment()
+    
+    netBankingTransaction = NEW Transaction<NetBanking>("T003", 300.00, NEW NetBanking("Bank of America"))
+    netBankingTransaction.processPayment()

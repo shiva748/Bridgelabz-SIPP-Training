@@ -1,0 +1,65 @@
+PSEUDOCODE: Smart Grid Energy Usage Tracker
+
+CLASS Reading:
+    meterId: string
+    consumption: double
+    
+    CONSTRUCTOR(meterId, consumption):
+        this.meterId = meterId
+        this.consumption = consumption
+
+CLASS EnergyTracker:
+    energyData: Map<string, Map<string, List<Reading>>>
+    
+    CONSTRUCTOR():
+        energyData = NEW HashMap<>()
+    
+    METHOD addReading(zone: string, day: string, reading: Reading):
+        IF NOT energyData.containsKey(zone):
+            energyData.put(zone, NEW HashMap<>())
+        
+        zoneData = energyData.get(zone)
+        IF NOT zoneData.containsKey(day):
+            zoneData.put(day, NEW ArrayList<>())
+        
+        zoneData.get(day).add(reading)
+    
+    METHOD findPeakUsage():
+        peakReport = NEW HashMap<string, Map<string, double>>()
+        
+        FOR EACH zone IN energyData.keySet():
+            zonePeaks = NEW HashMap<string, double>()
+            zoneData = energyData.get(zone)
+            
+            FOR EACH day IN zoneData.keySet():
+                readings = zoneData.get(day)
+                peak = readings.stream()
+                    .mapToDouble(Reading::getConsumption)
+                    .max()
+                    .orElse(0.0)
+                zonePeaks.put(day, peak)
+            
+            peakReport.put(zone, zonePeaks)
+        
+        RETURN peakReport
+
+MAIN:
+    tracker = NEW EnergyTracker()
+    
+    tracker.addReading("Zone-A", "2025-08-01", NEW Reading("M001", 120.0))
+    tracker.addReading("Zone-A", "2025-08-01", NEW Reading("M002", 90.0))
+    tracker.addReading("Zone-A", "2025-08-01", NEW Reading("M003", 200.0))
+    tracker.addReading("Zone-A", "2025-08-01", NEW Reading("M004", 150.0))
+    
+    tracker.addReading("Zone-B", "2025-08-01", NEW Reading("M005", 300.0))
+    tracker.addReading("Zone-B", "2025-08-01", NEW Reading("M006", 350.0))
+    tracker.addReading("Zone-B", "2025-08-01", NEW Reading("M007", 250.0))
+    
+    peakReport = tracker.findPeakUsage()
+    
+    PRINT "Peak Usage Report:"
+    FOR EACH zone IN peakReport.keySet():
+        PRINT "Zone: " + zone
+        zoneData = peakReport.get(zone)
+        FOR EACH day IN zoneData.keySet():
+            PRINT "  " + day + ": " + zoneData.get(day) + "kW"
