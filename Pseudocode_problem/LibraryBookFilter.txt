@@ -1,8 +1,0 @@
-class Book {
-    title, year, rating
-}
-
-listOfBooks.stream()
-    .filter(book -> book.year > 2015)
-    .filter(book -> book.rating > 4.5)
-    .collect(toList())
