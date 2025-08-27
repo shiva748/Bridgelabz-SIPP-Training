@@ -11,7 +11,7 @@ Each entry includes concepts covered, skills practiced, and links to the exact c
 ### 📅 09/06/25 (Mon) – Day 1 – Java Fundamentals  
 *Topics*: Introduction to Java, role of JDK, JRE, and JVM, writing the first program, variable types, and basic data types in Java  
 🔗 [Code](https://github.com/shiva748/BridgeLabz-SIPP-Training/tree/Core-Java/PracticeProblem)
-
+ 
 ---
 
 ### 📅 10/06/25 (Tue) – Day 2 – Java Programming Elements  
