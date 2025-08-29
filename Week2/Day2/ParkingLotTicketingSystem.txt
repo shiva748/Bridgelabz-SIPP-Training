@@ -1,0 +1,42 @@
+class Vehicle:
+    attributes:
+        vehicleNumber
+        entryTime
+
+    method calculateFee(exitTime):
+
+class Car(Vehicle):
+    method calculateFee(exitTime):
+        hours = (exitTime - entryTime) in hours
+        if hours <= 1:
+            fee = 50
+        else:
+            fee = 50 + (hours - 1) * 30
+        return fee
+
+class Bike(Vehicle):
+    method calculateFee(exitTime):
+        hours = (exitTime - entryTime) in hours
+        if hours <= 1:
+            fee = 20
+        else:
+            fee = 20 + (hours - 1) * 10
+        return fee
+
+class Truck(Vehicle):
+    method calculateFee(exitTime):
+        hours = (exitTime - entryTime) in hours
+        if hours <= 1:
+            fee = 100
+        else:
+            fee = 100 + (hours - 1) * 50
+        return fee
+
+car = Car("KA05AB1234", "10:00 AM")
+car.calculateFee("1:30 PM")
+
+bike = Bike("KA05XY7890", "11:15 AM")
+bike.calculateFee("12:00 PM")
+
+truck = Truck("KA09TR5566", "09:30 AM")
+truck.calculateFee("2:00 PM")
