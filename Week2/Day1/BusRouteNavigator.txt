@@ -1,0 +1,35 @@
+CLASS Node
+    ATTRIBUTES stopName next
+END CLASS
+
+CLASS LinkedList
+    ATTRIBUTES head
+    METHOD addStop(stopName, position)
+        CREATE new node with stopName
+        INSERT node at specified position
+        UPDATE pointers
+    END METHOD
+    
+    METHOD removeStop(stopName)
+        FIND node with stopName
+        REMOVE node from list
+        UPDATE pointers
+    END METHOD
+    
+    METHOD searchStop(stopName)
+        CURRENT = head
+        WHILE CURRENT != null
+            IF CURRENT.stopName == stopName THEN
+                RETURN true
+            END IF
+            CURRENT = CURRENT.next
+        END WHILE
+        RETURN false
+    END METHOD
+END CLASS
+
+EXAMPLE RUN:
+Initial route: Depot → Main Street → City Mall → Hospital → Airport
+Add University Stop after City Mall
+Remove Hospital due to road closure
+Search for Airport, confirm it's in route
