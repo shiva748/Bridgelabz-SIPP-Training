@@ -1,0 +1,26 @@
+class User:
+    attributes:
+        username
+        password
+
+    method login():
+
+class Student(User):
+    method login():
+        if student is registered and enrolled:
+            Grant access to exams
+        else:
+            Deny access
+
+class Admin(User):
+    method login():
+        if admin credentials are valid and has privileges:
+            Grant access to exam management
+        else:
+            Deny access
+
+student = Student("john123", "password")
+student.login()
+
+admin = Admin("adminUser", "adminPass")
+admin.login()
