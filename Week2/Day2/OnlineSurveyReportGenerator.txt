@@ -1,0 +1,34 @@
+class SurveyResponse:
+    attributes:
+        restaurantName
+        rating
+
+class SurveyReport:
+    attributes:
+        responses
+
+    method addResponse(response):
+        responses.add(response)
+
+    method generateReport():
+        report = {}
+        for response in responses:
+            if response.restaurantName in report:
+                report[response.restaurantName].add(response.rating)
+            else:
+                report[response.restaurantName] = [response.rating]
+        
+        averageRatings = {}
+        for restaurant, ratings in report:
+            averageRatings[restaurant] = sum(ratings) / len(ratings)
+        
+        return averageRatings
+
+report = SurveyReport()
+report.addResponse(SurveyResponse("PizzaHut", 4))
+report.addResponse(SurveyResponse("PizzaHut", 5))
+report.addResponse(SurveyResponse("KFC", 3))
+report.addResponse(SurveyResponse("KFC", 4))
+report.addResponse(SurveyResponse("Subway", 5))
+report.addResponse(SurveyResponse("Subway", 4))
+averageRatings = report.generateReport()
