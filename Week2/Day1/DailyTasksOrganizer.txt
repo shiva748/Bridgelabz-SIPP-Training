@@ -1,0 +1,27 @@
+CLASS TaskOrganizer
+    ATTRIBUTES tasks = LinkedHashMap<Integer, String>
+    ATTRIBUTES nextId = 1
+    
+    METHOD addTask(description)
+        tasks.put(nextId, description)
+        nextId++
+    END METHOD
+    
+    METHOD removeTask(taskId)
+        tasks.remove(taskId)
+    END METHOD
+    
+    METHOD viewTasks()
+        FOR EACH entry IN tasks.entrySet()
+            PRINT entry.getKey() + " → " + entry.getValue()
+        END FOR
+    END METHOD
+END CLASS
+
+EXAMPLE RUN:
+Add tasks:
+1 → Check emails
+2 → Prepare sales report
+3 → Call client
+Remove task 2
+Remaining tasks: 1 → Check emails, 3 → Call client
