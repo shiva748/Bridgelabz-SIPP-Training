@@ -1,0 +1,33 @@
+CLASS User
+    ATTRIBUTES username password
+    METHOD login()
+END CLASS
+
+CLASS Student EXTENDS User
+    METHOD login()
+        IF student registered AND enrolled THEN
+            GRANT access to exams
+        ELSE
+            DENY access
+        END IF
+    END METHOD
+END CLASS
+
+CLASS Admin EXTENDS User
+    METHOD login()
+        IF staff credentials valid AND admin privileges THEN
+            ALLOW exam management
+        ELSE
+            DENY access
+        END IF
+    END METHOD
+END CLASS
+
+EXAMPLE RUN:
+Student enters "john123" and password
+System validates credentials and enrollment
+Show available exams
+
+Admin logs in
+System checks credentials and role
+Show tools to create/manage exams
