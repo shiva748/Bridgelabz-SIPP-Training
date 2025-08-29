@@ -1,0 +1,38 @@
+CLASS Ticket
+    ATTRIBUTES movieName seatNumber price bookingStatus
+END CLASS
+
+CLASS Theatre
+    ATTRIBUTES movieSchedules availableSeats
+    METHOD issueTicket(movie, seat)
+        IF seat available THEN
+            CREATE new Ticket object
+            UPDATE seat availability
+            RETURN ticket
+        ELSE
+            RETURN null
+        END IF
+    END METHOD
+    
+    METHOD cancelTicket(ticket)
+        UPDATE seat availability to free
+        SET ticket status to cancelled
+    END METHOD
+END CLASS
+
+CLASS Customer
+    ATTRIBUTES name
+    METHOD bookTicket(theatre, movie, seat)
+        ticket = theatre.issueTicket(movie, seat)
+        RETURN ticket
+    END METHOD
+    
+    METHOD cancelTicket(theatre, ticket)
+        theatre.cancelTicket(ticket)
+    END METHOD
+END CLASS
+
+EXAMPLE RUN:
+Customer "Ravi" books Avengers: Endgame at 6 PM, seat A12
+System issues ticket, updates seat map
+Later, Ravi cancels ticket, freeing seat A12
