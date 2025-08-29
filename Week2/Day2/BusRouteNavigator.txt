@@ -1,0 +1,50 @@
+class Node:
+    attributes:
+        stopName
+        next
+
+class LinkedList:
+    attributes:
+        head
+
+    method addStop(stopName, position):
+        newNode = Node(stopName)
+        if position == 0:
+            newNode.next = head
+            head = newNode
+        else:
+            current = head
+            for i from 0 to position-1:
+                current = current.next
+            newNode.next = current.next
+            current.next = newNode
+
+    method removeStop(stopName):
+        if head.stopName == stopName:
+            head = head.next
+            return
+        current = head
+        while current.next != null:
+            if current.next.stopName == stopName:
+                current.next = current.next.next
+                return
+            current = current.next
+
+    method searchStop(stopName):
+        current = head
+        while current != null:
+            if current.stopName == stopName:
+                return true
+            current = current.next
+        return false
+
+route = LinkedList()
+route.addStop("Depot", 0)
+route.addStop("Main Street", 1)
+route.addStop("City Mall", 2)
+route.addStop("Hospital", 3)
+route.addStop("Airport", 4)
+
+route.addStop("University Stop", 3)
+route.removeStop("Hospital")
+route.searchStop("Airport")
