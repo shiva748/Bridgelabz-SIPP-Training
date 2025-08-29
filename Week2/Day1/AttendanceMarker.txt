@@ -1,0 +1,32 @@
+CLASS AttendanceTracker
+    ATTRIBUTES attendance[][]
+    ATTRIBUTES studentCount daysInMonth
+    
+    METHOD initialize(students, days)
+        CREATE 2D array with students rows and days columns
+        INITIALIZE all cells to 'A'
+    END METHOD
+    
+    METHOD markAttendance(studentIndex, day, status)
+        SET attendance[studentIndex][day] = status
+    END METHOD
+    
+    METHOD updateAttendance(studentIndex, day, newStatus)
+        SET attendance[studentIndex][day] = newStatus
+    END METHOD
+    
+    METHOD generateReport(studentIndex)
+        presentCount = 0
+        FOR day FROM 1 TO daysInMonth
+            IF attendance[studentIndex][day] == 'P' THEN
+                presentCount++
+            END IF
+        END FOR
+        RETURN presentCount
+    END METHOD
+END CLASS
+
+EXAMPLE RUN:
+Student 1 attendance: P, P, A, P, P, P, A
+Update day 3 from A to P
+Calculate Student 1 present for 26 days
