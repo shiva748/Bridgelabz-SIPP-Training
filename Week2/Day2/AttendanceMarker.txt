@@ -1,0 +1,36 @@
+class AttendanceMarker:
+    attributes:
+        attendance[30][30]  // 30 students, 30 days
+
+    method markAttendance(studentId, day, status):
+        attendance[studentId][day] = status
+
+    method dailySummary(day):
+        count = 0
+        for student from 0 to 29:
+            if attendance[student][day] == 1:
+                count = count + 1
+        return count
+
+    method monthlySummary(studentId):
+        count = 0
+        for day from 0 to 29:
+            if attendance[studentId][day] == 1:
+                count = count + 1
+        return count
+
+    method defaulterList():
+        defaulters = []
+        for studentId from 0 to 29:
+            presentDays = monthlySummary(studentId)
+            if presentDays < 22:  // 75% of 30 days = 22.5, so < 22
+                defaulters.add(studentId)
+        return defaulters
+
+attendance = AttendanceMarker()
+attendance.markAttendance(0, 0, 1)  // Student 1 present on Day 1
+attendance.markAttendance(2, 0, 0)  // Student 3 absent on Day 1
+
+dailyCount = attendance.dailySummary(10)
+studentAttendance = attendance.monthlySummary(5)
+defaulters = attendance.defaulterList()
