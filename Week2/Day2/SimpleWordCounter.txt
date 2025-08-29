@@ -1,0 +1,34 @@
+class WordCounter:
+    attributes:
+        wordCountMap
+
+    method countWords(text):
+        words = text.split(" ")
+        for word in words:
+            normalizedWord = word.toLowerCase().removePunctuation()
+            if normalizedWord in wordCountMap:
+                wordCountMap[normalizedWord] = wordCountMap[normalizedWord] + 1
+            else:
+                wordCountMap[normalizedWord] = 1
+
+    method getMostFrequentWord():
+        maxCount = 0
+        mostFrequentWord = ""
+        for word, count in wordCountMap:
+            if count > maxCount:
+                maxCount = count
+                mostFrequentWord = word
+        return mostFrequentWord
+
+    method getRarelyUsedWords(threshold):
+        rarelyUsed = []
+        for word, count in wordCountMap:
+            if count < threshold:
+                rarelyUsed.add(word)
+        return rarelyUsed
+
+text = "Sports bring people together. Sports inspire teamwork. Sports create leaders."
+counter = WordCounter()
+counter.countWords(text)
+mostFrequent = counter.getMostFrequentWord()
+rareWords = counter.getRarelyUsedWords(1)
