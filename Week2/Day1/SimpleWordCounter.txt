@@ -1,0 +1,32 @@
+CLASS WordCounter
+    METHOD countWords(text)
+        words = text.split(" ")
+        wordCount = HashMap<String, Integer>
+        
+        FOR EACH word IN words
+            cleanWord = word.toLowerCase().replaceAll("[^a-zA-Z]", "")
+            IF cleanWord not empty THEN
+                wordCount.put(cleanWord, wordCount.getOrDefault(cleanWord, 0) + 1)
+            END IF
+        END FOR
+        
+        sortedWords = wordCount.entrySet().stream()
+            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+            .collect(Collectors.toList())
+        
+        RETURN sortedWords
+    END METHOD
+END CLASS
+
+EXAMPLE RUN:
+Input: "The news today is about the rise in technology trends."
+Output:
+the → 2
+news → 1
+today → 1
+is → 1
+about → 1
+rise → 1
+in → 1
+technology → 1
+trends → 1
