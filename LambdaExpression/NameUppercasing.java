@@ -13,3 +13,4 @@ public class NameUppercasing {
         upperCaseNames.forEach(System.out::println);
     }
 }
+ 
