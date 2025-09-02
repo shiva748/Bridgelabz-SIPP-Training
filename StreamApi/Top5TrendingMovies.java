@@ -14,7 +14,7 @@ class Movie {
 
     public int getReleaseYear() {
         return releaseYear;
-    }
+    } 
 
     public Movie(String title, double rating, int releaseYear) {
         this.title = title;
