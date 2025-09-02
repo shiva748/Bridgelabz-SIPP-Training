@@ -15,3 +15,4 @@ public class LoggingTransactions {
         transactionIds.forEach(id -> System.out.println(LocalDateTime.now() + " - Transaction: " + id));
     }
 }
+ 
