@@ -27,7 +27,7 @@ class Doctor {
         return name + " - " + specialty + " (Weekends: " + (availableWeekends ? "Yes" : "No") + ")";
     }
 }
-
+ 
 public class HospitalDoctorAvailability {
     public static void main(String[] args) {
         List<Doctor> doctors = Arrays.asList(
