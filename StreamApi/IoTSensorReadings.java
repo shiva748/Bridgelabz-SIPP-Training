@@ -13,3 +13,4 @@ public class IoTSensorReadings {
                 .forEach(reading -> System.out.println("ALERT: Reading " + reading + " exceeds threshold"));
     }
 }
+ 
