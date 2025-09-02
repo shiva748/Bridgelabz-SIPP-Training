@@ -16,7 +16,7 @@ class Alert {
         return type + ": " + message;
     }
 }
-
+ 
 public class NotificationFiltering {
     public static void main(String[] args) {
         List<Alert> alerts = Arrays.asList(
