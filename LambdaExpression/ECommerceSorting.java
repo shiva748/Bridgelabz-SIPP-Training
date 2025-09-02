@@ -1,7 +1,7 @@
 
 import java.util.*;
 
-class Product {
+class Product { 
     String name;
     double price;
     double rating;
