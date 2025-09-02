@@ -9,3 +9,4 @@ public class PatientIDPrinting {
         patientIDs.forEach(System.out::println);
     }
 }
+ 
