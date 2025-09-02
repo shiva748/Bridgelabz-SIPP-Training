@@ -20,4 +20,4 @@ public class TransformingNames {
         System.out.println("Customer names in uppercase (alphabetical order):");
         transformedNames.forEach(System.out::println);
     }
-}
+} 
