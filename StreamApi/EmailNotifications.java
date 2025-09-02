@@ -18,3 +18,4 @@ public class EmailNotifications {
         System.out.println("Sending notification to: " + email);
     }
 }
+ 
