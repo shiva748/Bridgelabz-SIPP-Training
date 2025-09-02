@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 class Invoice {
     String transactionId;
-
+ 
     Invoice(String transactionId) {
         this.transactionId = transactionId;
     }
