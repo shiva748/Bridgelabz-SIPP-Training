@@ -10,3 +10,4 @@ public class StockPriceLogger {
         stockPrices.forEach(price -> System.out.println("Stock price: $" + price));
     }
 }
+ 
