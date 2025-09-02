@@ -20,7 +20,7 @@ class Claim {
         return amount;
     }
 }
-
+ 
 public class InsuranceClaimAnalysis {
     public static void main(String[] args) {
         List<Claim> claims = Arrays.asList(
