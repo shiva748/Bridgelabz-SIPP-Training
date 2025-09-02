@@ -15,7 +15,7 @@ public class SmartHomeLighting {
         lightActions.put("motion", () -> System.out.println("Lights ON with soft glow."));
         lightActions.put("evening", () -> System.out.println("Lights ON with warm yellow tone."));
         lightActions.put("voice:party", () -> System.out.println("Lights flashing in party mode!"));
-
+ 
         
         lightActions.get("motion").activate();
         lightActions.get("evening").activate();
