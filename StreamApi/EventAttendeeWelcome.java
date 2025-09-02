@@ -15,3 +15,4 @@ public class EventAttendeeWelcome {
         attendees.forEach(attendee -> System.out.println("Welcome, " + attendee + "! We're glad you're here."));
     }
 }
+ 
